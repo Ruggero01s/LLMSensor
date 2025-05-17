@@ -1,7 +1,36 @@
 import re
-import datetime
-from datetime import datetime, strftime, gmtime
 import json
+import os
+import shutil
+from datetime import datetime
+from time import gmtime, strftime
+
+
+
+def copy_rename_preprocess(target_paths):
+    
+    search_root = "./russellmitchell"
+    destination_dir = "./collected_logs"
+
+    # Ensure destination exists
+    os.makedirs(destination_dir, exist_ok=True)
+
+    for path in target_paths:
+        full_path = os.path.normpath(os.path.join(search_root, path))
+        
+        parts = full_path.split(os.sep)
+        parts = parts[2:]
+        parts = [p.replace("_", "-") for p in parts]
+        new_name = "_".join(parts)
+        new_path = os.path.join(destination_dir, new_name)
+        
+        shutil.copy(full_path, destination_dir)
+        shutil.move(os.path.join(destination_dir, os.path.basename(full_path)), new_path)
+        
+        fix_timestamp_format(new_path)
+    
+
+
 
 def fix_timestamp_format(file_path):
     with open(file_path, 'r') as file:
@@ -30,10 +59,13 @@ def fix_timestamp_format(file_path):
                 formatted_time=dt.strftime('%Y-%m-%d %H:%M:%S')
             elif "error" in file_path:
             # matches: [Sat Jan 22 06:25:04.223068 2022]
-                ts = re.search(r'\[([A-Za-z]{3} [A-Za-z]{3} \d{1,2} \d{2}:\d{2}:\d{2}\.\d+ \d{4})\]', line).group(1)
-                # parse weekday, month, day, time.microsec, year
-                dt = datetime.strptime(ts, "%a %b %d %H:%M:%S.%f %Y")
-                formatted_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+                if line.startswith("["):
+                    ts = re.search(r'\[([A-Za-z]{3} [A-Za-z]{3} \d{1,2} \d{2}:\d{2}:\d{2}\.\d+ \d{4})\]', line).group(1)
+                    # parse weekday, month, day, time.microsec, year
+                    dt = datetime.strptime(ts, "%a %b %d %H:%M:%S.%f %Y")
+                    formatted_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+                else:
+                    continue
             else:
                 print("heck no: ", file_path)
         elif "logstash" in file_path:
@@ -72,3 +104,66 @@ def fix_timestamp_format(file_path):
         
     with open(file_path, 'w') as file:
         file.write(new_lines)
+        
+        
+if __name__ == "__main__":
+    paths = [
+    "gather/intranet_server/logs/apache2/access.log",
+    "gather/intranet_server/logs/apache2/error.log.1",
+    "gather/intranet_server/logs/apache2/error.log.2",
+    "gather/intranet_server/logs/apache2/error.log.3",
+    "gather/intranet_server/logs/apache2/error.log.4",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.1",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.2",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.3",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.4",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.1",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.2",
+    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.3",
+    "gather/intranet_server/logs/audit/audit.log",
+    "gather/intranet_server/logs/suricata/fast.log",
+    "gather/intranet_server/logs/auth.log",
+    "gather/intranet_server/logs/auth.log.1",
+    "gather/intranet_server/logs/syslog.1",
+    "gather/intranet_server/logs/syslog.2",
+    "gather/intranet_server/logs/syslog.3",
+    "gather/intranet_server/logs/syslog.4",
+
+    "gather/internal_share/logs/audit/audit.log",
+    "gather/internal_share/logs/suricata/fast.log",
+    "gather/internal_share/logs/auth.log",
+    "gather/internal_share/logs/auth.log.1",
+    "gather/internal_share/logs/syslog.1",
+    "gather/internal_share/logs/syslog.2",
+    "gather/internal_share/logs/syslog.3",
+    "gather/internal_share/logs/syslog.4",
+
+    "gather/inet-firewall/logs/suricata/fast.log",
+    "gather/inet-firewall/logs/auth.log",
+    "gather/inet-firewall/logs/auth.log.1",
+    "gather/inet-firewall/logs/dnsmasq.log",
+    "gather/inet-firewall/logs/syslog.1",
+    "gather/inet-firewall/logs/syslog.2",
+    "gather/inet-firewall/logs/syslog.3",
+    "gather/inet-firewall/logs/syslog.4",
+
+    "gather/inet-dns/logs/auth.log",
+    "gather/inet-dns/logs/auth.log.1",
+    "gather/inet-dns/logs/dnsmasq.log",
+    "gather/inet-dns/logs/syslog",
+    "gather/inet-dns/logs/syslog.1",
+    "gather/inet-dns/logs/syslog.2",
+    "gather/inet-dns/logs/syslog.3",
+    "gather/inet-dns/logs/syslog.4",
+
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-20-system.cpu.log",
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-21-system.cpu.log",
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-22-system.cpu.log",
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-23-system.cpu.log",
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-24-system.cpu.log",
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-25-system.cpu.log"
+]
+    
+    copy_rename_preprocess(paths)
