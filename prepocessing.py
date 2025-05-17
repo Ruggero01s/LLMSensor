@@ -7,6 +7,35 @@ from time import gmtime, strftime
 
 
 
+def divide_by_host_and_timeframe(start_time, end_time):
+    directory = "./collected_logs"
+    hosts_dict = {}
+    
+    for filename in os.listdir(directory):
+        host = filename.split("_")[0]
+        if host not in hosts_dict:
+            hosts_dict[host] = [os.path.join(directory, filename)]
+        else:
+            hosts_dict[host].append(os.path.join(directory, filename))
+    
+    windows_dict = {}
+    for host, file_list in hosts_dict.items():
+        for file_path in file_list:
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+            for line in lines:
+                line_timestamp = line.split("|")[1]
+                line_timestamp = line_timestamp.split("=")[1].strip()
+                dt = datetime.strptime(line_timestamp, "%Y-%m-%d %H:%M:%S")
+                if dt > start_time and dt < end_time:
+                    if host not in windows_dict:
+                        windows_dict[host] = []
+                    windows_dict[host].append(line)
+    
+    return windows_dict
+                
+
+
 def copy_rename_preprocess(target_paths):
     
     search_root = "./russellmitchell"
@@ -27,43 +56,49 @@ def copy_rename_preprocess(target_paths):
         shutil.copy(full_path, destination_dir)
         shutil.move(os.path.join(destination_dir, os.path.basename(full_path)), new_path)
         
-        fix_timestamp_format(new_path)
+        fix_format(new_path)
     
 
 
 
-def fix_timestamp_format(file_path):
+def fix_format(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
     
-    intro="TIMESTAMP: "
+    intro_time="TIMESTAMP= "
+    intro_name="LOG NAME= "
+    
+    format_pattern = "%Y-%m-%d %H:%M:%S"
+    
+    host_path = file_path.split(os.sep)[2]
+    
     new_lines = ""
     for line in lines:
         formatted_time = ""
         if("audit" in file_path):
             unix_time = re.search(r'\(([^:]+):[^)]+\)', line).group(1)
-            formatted_time=strftime('%Y-%m-%d %H:%M:%S', gmtime(float(unix_time)))
+            formatted_time=strftime(format_pattern, gmtime(float(unix_time)))
         elif("suricata" in file_path):
             ts = re.search(r'\d{2}/\d{2}/\d{4}-\d{2}:\d{2}:\d{2}\.\d+', line).group(0)
             dt = datetime.strptime(ts, "%m/%d/%Y-%H:%M:%S.%f")
-            formatted_time=dt.strftime('%Y-%m-%d %H:%M:%S')
+            formatted_time=dt.strftime(format_pattern)
         elif(("auth" in file_path) or ("syslog" in file_path) or ("dnsmasq" in file_path)): # Jan 21 00:14:21 # Jan 23 06:25:05
             ts = re.search(r'\w{3} \d{1,2} \d{2}:\d{2}:\d{2}', line).group(0)
             dt = datetime.strptime(ts, "%b %d %H:%M:%S")
             dt = dt.replace(year=2022)
-            formatted_time=dt.strftime('%Y-%m-%d %H:%M:%S')
+            formatted_time=dt.strftime(format_pattern)
         elif("apache2" in file_path): # apache2 access 10.143.2.91 - - [24/Jan/2022:07:34:57 +0000] #apache2 errors [Sun Jan 23 06:25:13.569352 2022] 
             if("access" in file_path):
                 ts = re.search(r'\[(\d{2}/[A-Za-z]{3}/\d{4}:\d{2}:\d{2}:\d{2}) [+\-]\d{4}\]', line).group(1)
                 dt = datetime.strptime(ts, "%d/%b/%Y:%H:%M:%S")
-                formatted_time=dt.strftime('%Y-%m-%d %H:%M:%S')
+                formatted_time=dt.strftime(format_pattern)
             elif "error" in file_path:
             # matches: [Sat Jan 22 06:25:04.223068 2022]
                 if line.startswith("["):
                     ts = re.search(r'\[([A-Za-z]{3} [A-Za-z]{3} \d{1,2} \d{2}:\d{2}:\d{2}\.\d+ \d{4})\]', line).group(1)
                     # parse weekday, month, day, time.microsec, year
                     dt = datetime.strptime(ts, "%a %b %d %H:%M:%S.%f %Y")
-                    formatted_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+                    formatted_time = dt.strftime(format_pattern)
                 else:
                     continue
             else:
@@ -73,7 +108,7 @@ def fix_timestamp_format(file_path):
             # 1) parse & reformat @timestamp
             ts_iso = obj.get("@timestamp")
             dt = datetime.strptime(ts_iso, "%Y-%m-%dT%H:%M:%S.%fZ")
-            formatted_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+            formatted_time = dt.strftime(format_pattern)
 
             # 2) pull out the host name
             # Metricbeat puts it under "host.name"
@@ -99,8 +134,9 @@ def fix_timestamp_format(file_path):
             line = "".join(parts)
             line += "\n"
             
-            
-        new_lines+=intro + formatted_time + " | " + line
+
+        
+        new_lines+=f"{intro_name}{host_path} | {intro_time}{formatted_time} | {line}"
         
     with open(file_path, 'w') as file:
         file.write(new_lines)
@@ -164,6 +200,13 @@ if __name__ == "__main__":
     "gather/monitoring/logs/logstash/intranet-server/2022-01-23-system.cpu.log",
     "gather/monitoring/logs/logstash/intranet-server/2022-01-24-system.cpu.log",
     "gather/monitoring/logs/logstash/intranet-server/2022-01-25-system.cpu.log"
-]
+    ]
     
-    copy_rename_preprocess(paths)
+    #copy_rename_preprocess(paths)
+    dt1 = datetime(2022, 1, 20, 11, 12, 0, 0)
+    dt2 = datetime(2022, 1, 20, 11, 14, 0, 0)
+    dic = divide_by_host_and_timeframe(dt1,dt2)
+    for host, lines in dic.items():
+        print(f"Host: {host}")
+        for line in lines:
+            print(line)
