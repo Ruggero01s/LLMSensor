@@ -2,7 +2,7 @@ import re
 import json
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import gmtime, strftime
 
 
@@ -59,7 +59,73 @@ def copy_rename_preprocess(target_paths):
         fix_format(new_path)
     
 
-
+def prepare_batches(ref_timestamp, lookback_duration, max_batch_size, multihost):
+    
+    #todo overlapping batches
+    
+    dt_lookback = timedelta(minutes=lookback_duration)
+    
+    start_time = ref_timestamp - dt_lookback
+    end_time = ref_timestamp
+    
+    host_dict = divide_by_host_and_timeframe(start_time, end_time)
+    
+    batches = []
+    singlehost_batches = {}
+    multihost_batches = [[]]
+    if multihost:
+        mega_dict = {}
+        for host,lines in host_dict.items():
+            for line in lines:
+                timestamp = line.split("|")[1].split("=")[1].strip()
+                dt_timestamp = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+                if dt_timestamp not in mega_dict:
+                    mega_dict[timestamp] = []
+                mega_dict[timestamp].append(line)
+        
+        
+        for timestamp in sorted(host_dict.keys()):
+            list_count=0
+            batch_size=1
+            for line in lines:
+                multihost_batches[list_count].append(line)
+                batch_size+=1
+                if batch_size >= max_batch_size:
+                    multihost_batches.append([])
+                    list_count+=1
+                    batch_size=1
+            if not multihost_batches[-1]:
+                multihost_batches.pop()
+        
+        for batch in multihost_batches:
+            for line in batch:
+                if "dns" in line:
+                    continue
+                print(line)
+            print("\n\n")
+    else:
+        for host,lines in host_dict.items():
+            singlehost_batches[host] = [[]]
+            list_count=0
+            batch_size=1
+            for line in lines:
+                singlehost_batches[host][list_count].append(line)
+                batch_size+=1
+                if batch_size >= max_batch_size:
+                    singlehost_batches[host].append([])
+                    list_count+=1
+                    batch_size=1
+            if not singlehost_batches[host][-1]:
+                singlehost_batches[host].pop()
+        
+        for host, batches in singlehost_batches.items():
+            for batch in batches:
+                print(batch)
+                print("\n\n")
+            
+                
+            
+        
 
 def fix_format(file_path):
     with open(file_path, 'r') as file:
@@ -204,9 +270,5 @@ if __name__ == "__main__":
     
     #copy_rename_preprocess(paths)
     dt1 = datetime(2022, 1, 20, 11, 12, 0, 0)
-    dt2 = datetime(2022, 1, 20, 11, 14, 0, 0)
-    dic = divide_by_host_and_timeframe(dt1,dt2)
-    for host, lines in dic.items():
-        print(f"Host: {host}")
-        for line in lines:
-            print(line)
+    dt2 = datetime(2022, 1, 21, 11, 18, 0, 0)
+    prepare_batches(dt2,10,10,True)
