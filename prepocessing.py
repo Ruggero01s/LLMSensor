@@ -70,7 +70,6 @@ def prepare_batches(ref_timestamp, lookback_duration, max_batch_size, multihost)
     
     host_dict = divide_by_host_and_timeframe(start_time, end_time)
     
-    batches = []
     singlehost_batches = {}
     multihost_batches = [[]]
     if multihost:
@@ -88,31 +87,30 @@ def prepare_batches(ref_timestamp, lookback_duration, max_batch_size, multihost)
             list_count=0
             batch_size=1
             for line in lines:
-                multihost_batches[list_count].append(line)
+                multihost_batches[list_count] += line
                 batch_size+=1
                 if batch_size >= max_batch_size:
-                    multihost_batches.append([])
+                    multihost_batches.append("")
                     list_count+=1
                     batch_size=1
             if not multihost_batches[-1]:
                 multihost_batches.pop()
         
-        for batch in multihost_batches:
-            for line in batch:
-                if "dns" in line:
-                    continue
-                print(line)
-            print("\n\n")
+        # for batch in multihost_batches:
+        #     print(batch)
+        #     print("\n\n")
+        
+        return multihost_batches
     else:
         for host,lines in host_dict.items():
-            singlehost_batches[host] = [[]]
+            singlehost_batches[host] = []
             list_count=0
             batch_size=1
             for line in lines:
-                singlehost_batches[host][list_count].append(line)
+                singlehost_batches[host][list_count] += line
                 batch_size+=1
                 if batch_size >= max_batch_size:
-                    singlehost_batches[host].append([])
+                    singlehost_batches[host].append("")
                     list_count+=1
                     batch_size=1
             if not singlehost_batches[host][-1]:
@@ -123,7 +121,8 @@ def prepare_batches(ref_timestamp, lookback_duration, max_batch_size, multihost)
                 print(batch)
                 print("\n\n")
             
-                
+        return singlehost_batches
+        
             
         
 
@@ -270,5 +269,5 @@ if __name__ == "__main__":
     
     #copy_rename_preprocess(paths)
     dt1 = datetime(2022, 1, 20, 11, 12, 0, 0)
-    dt2 = datetime(2022, 1, 21, 11, 18, 0, 0)
+    dt2 = datetime(2022, 1, 20, 11, 14, 0, 0)
     prepare_batches(dt2,10,10,True)
