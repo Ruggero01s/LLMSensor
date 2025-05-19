@@ -1,0 +1,11 @@
+la mia vita
+
+malformed json: controllare che con rf"{content}" i caratteri tipo \n e simili non dovrebbero più rompere tutto.
+    o rigenerare
+    o segnare che il modello non rispetta il prompt
+
+timestamps: start time should consider il primo lookback
+
+false positives: "imma a duck" malicious:true reason:cleary malicious
+
+batch size > 10 lo rompe, si dimentica che devono essere json
