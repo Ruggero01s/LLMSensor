@@ -5,6 +5,70 @@ import shutil
 from datetime import datetime, timedelta
 from time import gmtime, strftime
 
+class Batch:
+    def __init__(self, lines, reference_timestamp):
+        
+        self.lines = []
+        self.line_indexes = []
+        for i, line in lines:
+            self.lines.append(line)
+            self.line_indexes.append(i)
+        self.reference_timestamp = reference_timestamp  # batch reference timestamp
+        self.labels = self.extract_labels()
+        self.sources = self.extract_sources()
+        
+        
+    def __repr__(self):
+        return f"Batch: \n\tTimestamp: {self.reference_timestamp} \n\tSources: {[s for s in self.sources]}\n\tLabels: {[l for l in self.labels]}\n\tLines: {[l for l in self.lines]}"
+        
+        
+    def get_batch_as_string(self):
+        batch_string = ""
+        for line in self.lines:
+            batch_string += line
+            
+        return batch_string
+            
+
+    def extract_sources(self):
+        # Example: extract labels from lines (customize as needed)
+        sources = []
+        for line in self.lines:
+            match = re.search(r'LOG NAME= ([^|]+)', line)
+            if match:
+                sources.append(match.group(1).strip())
+        return list(set(sources))
+
+    def extract_labels(self):
+        labels_path = "russellmitchell/labels"
+        labels = set()
+        label_cache = {}  # Cache for label file contents
+
+        # Collect all unique sources in the batch
+        sources = set()
+        source_to_lines = {}
+        for idx, line in zip(self.line_indexes, self.lines):
+            match = re.search(r'LOG NAME= ([^|]+)', line)
+            if match:
+                source = match.group(1).strip()
+                sources.add(source)
+                source_to_lines.setdefault(source, set()).add(idx)
+
+        for source in sources:
+            path = source.replace("_", os.sep)
+            file_path = os.path.join(labels_path, path)
+            if not os.path.exists(file_path):
+                continue
+            # Cache label file contents
+            if file_path not in label_cache:
+                with open(file_path, 'r') as file:
+                    label_cache[file_path] = [json.loads(l) for l in file]
+            for obj in label_cache[file_path]:
+                line_index = obj.get("line")
+                if line_index in source_to_lines[source]:
+                    label_list = obj.get("labels", [])
+                    labels.update(label_list)
+        return list(labels)
 
 
 def divide_by_host_and_timeframe(start_time, end_time):
@@ -23,15 +87,14 @@ def divide_by_host_and_timeframe(start_time, end_time):
         for file_path in file_list:
             with open(file_path, 'r') as file:
                 lines = file.readlines()
-            for line in lines:
+            for i, line in enumerate(lines):
                 line_timestamp = line.split("|")[1]
                 line_timestamp = line_timestamp.split("=")[1].strip()
                 dt = datetime.strptime(line_timestamp, "%Y-%m-%d %H:%M:%S")
                 if dt > start_time and dt < end_time:
                     if host not in windows_dict:
                         windows_dict[host] = []
-                    windows_dict[host].append(line)
-    
+                    windows_dict[host].append((i, line))
     return windows_dict
                 
 
@@ -60,69 +123,29 @@ def copy_rename_preprocess(target_paths):
     
 
 def prepare_batches(ref_timestamp, lookback_duration, max_batch_size, multihost):
-    
-    #todo overlapping batches
-    
     dt_lookback = timedelta(minutes=lookback_duration)
-    
     start_time = ref_timestamp - dt_lookback
     end_time = ref_timestamp
-    
     host_dict = divide_by_host_and_timeframe(start_time, end_time)
     
-    singlehost_batches = {}
-    multihost_batches = [[]]
+    batches = []
     if multihost:
-        mega_dict = {}
-        for host,lines in host_dict.items():
-            for line in lines:
-                timestamp = line.split("|")[1].split("=")[1].strip()
-                dt_timestamp = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
-                if dt_timestamp not in mega_dict:
-                    mega_dict[timestamp] = []
-                mega_dict[timestamp].append(line)
-        
-        
-        for timestamp in sorted(host_dict.keys()):
-            list_count=0
-            batch_size=1
-            for line in lines:
-                multihost_batches[list_count] += line
-                batch_size+=1
-                if batch_size >= max_batch_size:
-                    multihost_batches.append("")
-                    list_count+=1
-                    batch_size=1
-            if not multihost_batches[-1]:
-                multihost_batches.pop()
-        
-        # for batch in multihost_batches:
-        #     print(batch)
-        #     print("\n\n")
-        
-        return multihost_batches
+        all_lines = []
+        for lines in host_dict.values():
+            all_lines.extend(lines)
+        # Split all_lines into batches of max_batch_size
+        for i in range(0, len(all_lines), max_batch_size):
+            batch_lines = all_lines[i:i+max_batch_size]
+            if batch_lines:
+                batches.append(Batch(batch_lines, ref_timestamp))
+        return batches
     else:
-        for host,lines in host_dict.items():
-            singlehost_batches[host] = []
-            list_count=0
-            batch_size=1
-            for line in lines:
-                singlehost_batches[host][list_count] += line
-                batch_size+=1
-                if batch_size >= max_batch_size:
-                    singlehost_batches[host].append("")
-                    list_count+=1
-                    batch_size=1
-            if not singlehost_batches[host][-1]:
-                singlehost_batches[host].pop()
-        
-        for host, batches in singlehost_batches.items():
-            for batch in batches:
-                print(batch)
-                print("\n\n")
-            
-        return singlehost_batches
-        
+        for host, lines in host_dict.items():
+            for i in range(0, len(lines), max_batch_size):
+                batch_lines = lines[i:i+max_batch_size]
+                if batch_lines:
+                    batches.append(Batch(batch_lines, ref_timestamp))
+        return batches
             
         
 
@@ -209,37 +232,37 @@ def fix_format(file_path):
         
 if __name__ == "__main__":
     paths = [
-    "gather/intranet_server/logs/apache2/access.log",
-    "gather/intranet_server/logs/apache2/error.log.1",
-    "gather/intranet_server/logs/apache2/error.log.2",
-    "gather/intranet_server/logs/apache2/error.log.3",
-    "gather/intranet_server/logs/apache2/error.log.4",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.1",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.2",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.3",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-access.log.4",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.1",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.2",
-    "gather/intranet_server/logs/apache2/intranet.smith.russellmitchell.com-error.log.3",
-    "gather/intranet_server/logs/audit/audit.log",
-    "gather/intranet_server/logs/suricata/fast.log",
-    "gather/intranet_server/logs/auth.log",
-    "gather/intranet_server/logs/auth.log.1",
-    "gather/intranet_server/logs/syslog.1",
-    "gather/intranet_server/logs/syslog.2",
-    "gather/intranet_server/logs/syslog.3",
-    "gather/intranet_server/logs/syslog.4",
+    "gather/intranet-server/logs/apache2/access.log",
+    "gather/intranet-server/logs/apache2/error.log.1",
+    "gather/intranet-server/logs/apache2/error.log.2",
+    "gather/intranet-server/logs/apache2/error.log.3",
+    "gather/intranet-server/logs/apache2/error.log.4",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-access.log",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-access.log.1",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-access.log.2",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-access.log.3",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-access.log.4",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-error.log",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-error.log.1",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-error.log.2",
+    "gather/intranet-server/logs/apache2/intranet.smith.russellmitchell.com-error.log.3",
+    "gather/intranet-server/logs/audit/audit.log",
+    "gather/intranet-server/logs/suricata/fast.log",
+    "gather/intranet-server/logs/auth.log",
+    "gather/intranet-server/logs/auth.log.1",
+    "gather/intranet-server/logs/syslog.1",
+    "gather/intranet-server/logs/syslog.2",
+    "gather/intranet-server/logs/syslog.3",
+    "gather/intranet-server/logs/syslog.4",
 
-    "gather/internal_share/logs/audit/audit.log",
-    "gather/internal_share/logs/suricata/fast.log",
-    "gather/internal_share/logs/auth.log",
-    "gather/internal_share/logs/auth.log.1",
-    "gather/internal_share/logs/syslog.1",
-    "gather/internal_share/logs/syslog.2",
-    "gather/internal_share/logs/syslog.3",
-    "gather/internal_share/logs/syslog.4",
+    "gather/internal-share/logs/audit/audit.log",
+    "gather/internal-share/logs/suricata/fast.log",
+    "gather/internal-share/logs/auth.log",
+    "gather/internal-share/logs/auth.log.1",
+    "gather/internal-share/logs/syslog.1",
+    "gather/internal-share/logs/syslog.2",
+    "gather/internal-share/logs/syslog.3",
+    "gather/internal-share/logs/syslog.4",
 
     "gather/inet-firewall/logs/suricata/fast.log",
     "gather/inet-firewall/logs/auth.log",
@@ -267,7 +290,12 @@ if __name__ == "__main__":
     "gather/monitoring/logs/logstash/intranet-server/2022-01-25-system.cpu.log"
     ]
     
+    
     #copy_rename_preprocess(paths)
-    dt1 = datetime(2022, 1, 20, 11, 12, 0, 0)
-    dt2 = datetime(2022, 1, 20, 11, 14, 0, 0)
-    prepare_batches(dt2,10,10,True)
+    dt1 = datetime(2022, 1, 21, 11, 12, 0, 0)
+    dt2 = datetime(2022, 1, 23, 11, 20, 0, 0)
+    batches = prepare_batches(dt2,10,10,True)
+    for batch in batches:
+        if batch.labels:
+            print(batch)
+    
