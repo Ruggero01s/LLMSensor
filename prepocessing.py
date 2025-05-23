@@ -106,8 +106,9 @@ def divide_by_host_and_timeframe(start_time, end_time, overlap_minutes, max_over
 
 def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minutes, overlap_percentage, multihost):
     start_time = reference_time - timedelta(minutes=lookback_minutes) #todo rename lookback to qualcosa che ha senso, è la dim temporale di una batch
-    overlap_size=round(overlap_percentage * batch_size)
-    host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, overlap_size)
+    
+    overlap=round(overlap_percentage * batch_size)
+    host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, )
     batches = []
 
     # if multihost:
@@ -119,13 +120,12 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
     #     for host, lines in host_logs.items():
     #         for i in range(0, len(lines), batch_size):
     #             batches.append(Batch(lines[i:i + batch_size], reference_time))
+    
+    
     if multihost:
         all_lines = [entry for lines in host_logs.values() for entry in lines]
-        c=0
-        temp=[]
-        first = True
-        actual_batch=0
-        
+        temp=overlap_logs
+        actual_batch=len(temp)
         for i in range(all_lines):
             if(actual_batch<batch_size):
                 temp.append(all_lines[i])
@@ -134,19 +134,13 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
                 batches.append(Batch(temp, reference_time))
                 actual_batch=0
                 temp=[]
-                if not first:
-                    i-= overlap
-                else:
-                    first=False
+                i-= overlap
         if(temp):
             batches.append(Batch(temp, reference_time))    
     else:
         for host, lines in host_logs.items():
-            c=0
-            temp=[]
-            first = True
-            actual_batch=0
-            overlap=round(overlap_percentage * batch_size)
+            temp=overlap_logs
+            actual_batch=len(temp)
             for i in range(lines):
                 if(actual_batch<batch_size):
                     temp.append(all_lines[i])
@@ -155,10 +149,7 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
                     batches.append(Batch(temp, reference_time))
                     actual_batch=0
                     temp=[]
-                    if not first:
-                        i-= overlap
-                    else:
-                        first=False
+                    i-= overlap
             if(temp):
                 batches.append(Batch(temp, reference_time))  
     return batches
