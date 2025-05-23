@@ -87,18 +87,19 @@ if __name__ == "__main__":
         batch_counter += len(batch_list)
         print(len(batch_list))
         for batch in batch_list:
-            response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
-            if response == -1:
-                malformed_counter += 1
-                continue
-            json_content = convert_to_bool(json_content)
-            save_model_output(batch, json_content)
-            confusion_dict[check_model_output(batch, json_content)] += 1
-            i+=1
-            if i > 10:
-                break
-        if i>10:
-            break
+            print(batch)
+    #         response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
+    #         if response == -1:
+    #             malformed_counter += 1
+    #             continue
+    #         json_content = convert_to_bool(json_content)
+    #         save_model_output(batch, json_content)
+    #         confusion_dict[check_model_output(batch, json_content)] += 1
+    #         i+=1
+    #         if i > 10:
+    #             break
+    #     if i>10:
+    #         break
 
             
 

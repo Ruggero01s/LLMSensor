@@ -20,17 +20,32 @@ class Batch:
         self.sources = self.extract_sources()
 
     def __repr__(self):
+        
+        short_lines = []
+        for l in self.lines:
+            short_lines.append(l[:10]+"...."+l[-10:])
+        line_with_index = list(zip(self.line_indexes, short_lines))
+        lines_to_print = []
+        for i, l in line_with_index:
+            lines_to_print.append(f"{i} | {l}")
         return (
             f"Batch:\n\tTimestamp: {self.reference_timestamp}\n\t"
             f"Sources: {self.sources}\n\tLabels: {self.labels}\n\t"
-            f"Lines: {len(self.lines)}"
+            f"Lines: {[ l for l in lines_to_print]}"
         )
         
     def __str__(self):
+        short_lines = []
+        for l in self.lines:
+            short_lines.append(l[:10]+"...."+l[-10:])
+        line_with_index = list(zip(self.line_indexes, short_lines))
+        lines_to_print = []
+        for i, l in line_with_index:
+            lines_to_print.append(f"{i} | {l}")
         return (
             f"Batch:\n\tTimestamp: {self.reference_timestamp}\n\t"
             f"Sources: {self.sources}\n\tLabels: {self.labels}\n\t"
-            f"Lines: {[l for l in self.lines]}"
+            f"Lines: {[ l for l in lines_to_print]}"
         )
 
     def get_batch_as_string(self):
@@ -82,6 +97,7 @@ def divide_by_host_and_timeframe(start_time, end_time, overlap_minutes, max_over
 
     windows = defaultdict(list)
     overlap_dict = defaultdict(list)
+    overlap_time = start_time - timedelta(minutes=overlap_minutes)
     for host, filepaths in hosts.items():
         for path in filepaths:
             with open(path) as f:
@@ -93,22 +109,22 @@ def divide_by_host_and_timeframe(start_time, end_time, overlap_minutes, max_over
                     dt = datetime.strptime(timestamp, FORMAT_PATTERN)
                     if start_time < dt < end_time:
                         windows[host].append((i, line))
-                    if start_time - timedelta(minutes=overlap_minutes) < dt < start_time:
+                    if overlap_time <= dt <= start_time:
                         overlap_dict[host].append((i, line))
                 except (IndexError, ValueError):
                     continue
     
-    for host, lines in overlap_dict.items():
-        if len(lines) > max_overlap_logs:
-            lines = lines[:-max_overlap_logs]
+    # for host, lines in overlap_dict.items():
+    #     if len(lines) > max_overlap_logs:
+    #         lines = lines[-max_overlap_logs:]
     
     return windows, overlap_dict
 
 def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minutes, overlap_percentage, multihost):
     start_time = reference_time - timedelta(minutes=lookback_minutes) #todo rename lookback to qualcosa che ha senso, è la dim temporale di una batch
     
-    overlap=round(overlap_percentage * batch_size)
-    host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, )
+    overlap_size=round(overlap_percentage * batch_size)
+    host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, max_overlap_logs=overlap_size)
     batches = []
 
     # if multihost:
@@ -124,32 +140,41 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
     
     if multihost:
         all_lines = [entry for lines in host_logs.values() for entry in lines]
-        temp=overlap_logs
+        all_lines_overlap = [entry for lines in overlap_logs.values() for entry in lines]
+        if len(all_lines_overlap) > overlap_size:
+            temp = all_lines_overlap[-overlap_size:]
+        else:
+            temp = all_lines_overlap
         actual_batch=len(temp)
-        for i in range(all_lines):
-            if(actual_batch<batch_size):
+        for i in range(0, len(all_lines)):
+            if(actual_batch<batch_size-1):
                 temp.append(all_lines[i])
                 actual_batch+=1
             else:
+                temp.append(all_lines[i])
                 batches.append(Batch(temp, reference_time))
                 actual_batch=0
                 temp=[]
-                i-= overlap
-        if(temp):
+                i-= overlap_size+10 #questa linea non fa niente non capisco perchè
+        if(temp): #for last batch
             batches.append(Batch(temp, reference_time))    
     else:
         for host, lines in host_logs.items():
-            temp=overlap_logs
+            if len(overlap_logs[host]) > overlap_size:
+                temp = overlap_logs[host][-overlap_size:]
+            else:
+                temp = overlap_logs[host]
             actual_batch=len(temp)
-            for i in range(lines):
-                if(actual_batch<batch_size):
+            for i in range(0, len(lines)):
+                if(actual_batch<batch_size-1):
                     temp.append(all_lines[i])
                     actual_batch+=1
                 else:
+                    temp.append(all_lines[i])
                     batches.append(Batch(temp, reference_time))
                     actual_batch=0
                     temp=[]
-                    i-= overlap
+                    i-= overlap_size
             if(temp):
                 batches.append(Batch(temp, reference_time))  
     return batches
