@@ -71,7 +71,7 @@ class Batch:
 
         return list(labels)
 
-def divide_by_host_and_timeframe(start_time, end_time):
+def divide_by_host_and_timeframe(start_time, end_time, overlap_minutes, max_overlap_logs):
     hosts = defaultdict(list)
 
     # Group logs by host
@@ -81,7 +81,7 @@ def divide_by_host_and_timeframe(start_time, end_time):
         hosts[host].append(filepath)
 
     windows = defaultdict(list)
-
+    overlap_dict = defaultdict(list)
     for host, filepaths in hosts.items():
         for path in filepaths:
             with open(path) as f:
@@ -93,25 +93,74 @@ def divide_by_host_and_timeframe(start_time, end_time):
                     dt = datetime.strptime(timestamp, FORMAT_PATTERN)
                     if start_time < dt < end_time:
                         windows[host].append((i, line))
+                    if start_time - timedelta(minutes=overlap_minutes) < dt < start_time:
+                        overlap_dict[host].append((i, line))
                 except (IndexError, ValueError):
                     continue
+    
+    for host, lines in overlap_dict.items():
+        if len(lines) > max_overlap_logs:
+            lines = lines[:-max_overlap_logs]
+    
+    return windows, overlap_dict
 
-    return windows
-
-def prepare_batches(reference_time, lookback_minutes, batch_size, multihost):
-    start_time = reference_time - timedelta(minutes=lookback_minutes)
-    host_logs = divide_by_host_and_timeframe(start_time, reference_time)
+def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minutes, overlap_percentage, multihost):
+    start_time = reference_time - timedelta(minutes=lookback_minutes) #todo rename lookback to qualcosa che ha senso, è la dim temporale di una batch
+    overlap_size=round(overlap_percentage * batch_size)
+    host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, overlap_size)
     batches = []
 
+    # if multihost:
+    #     all_lines = [entry for lines in host_logs.values() for entry in lines]
+    #     for i in range(0, len(all_lines), batch_size):
+    #         if 
+    #         batches.append(Batch(all_lines[i:i + batch_size], reference_time))
+    # else:
+    #     for host, lines in host_logs.items():
+    #         for i in range(0, len(lines), batch_size):
+    #             batches.append(Batch(lines[i:i + batch_size], reference_time))
     if multihost:
         all_lines = [entry for lines in host_logs.values() for entry in lines]
-        for i in range(0, len(all_lines), batch_size):
-            batches.append(Batch(all_lines[i:i + batch_size], reference_time))
+        c=0
+        temp=[]
+        first = True
+        actual_batch=0
+        
+        for i in range(all_lines):
+            if(actual_batch<batch_size):
+                temp.append(all_lines[i])
+                actual_batch+=1
+            else:
+                batches.append(Batch(temp, reference_time))
+                actual_batch=0
+                temp=[]
+                if not first:
+                    i-= overlap
+                else:
+                    first=False
+        if(temp):
+            batches.append(Batch(temp, reference_time))    
     else:
         for host, lines in host_logs.items():
-            for i in range(0, len(lines), batch_size):
-                batches.append(Batch(lines[i:i + batch_size], reference_time))
-
+            c=0
+            temp=[]
+            first = True
+            actual_batch=0
+            overlap=round(overlap_percentage * batch_size)
+            for i in range(lines):
+                if(actual_batch<batch_size):
+                    temp.append(all_lines[i])
+                    actual_batch+=1
+                else:
+                    batches.append(Batch(temp, reference_time))
+                    actual_batch=0
+                    temp=[]
+                    if not first:
+                        i-= overlap
+                    else:
+                        first=False
+            if(temp):
+                batches.append(Batch(temp, reference_time))  
     return batches
 
 def copy_rename_preprocess(paths):

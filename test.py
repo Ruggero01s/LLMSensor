@@ -1,5 +1,11 @@
-import json
+""" import json
 test = r'{"malicious": "True","reason": "The logs indicate an unusual pattern of DNS queries and responses, potentially indicating a DNS tunneling or exfiltration attempt. Specifically: * The IP address 192.168.231.56 makes repeated DNS requests to the internal IP address 127.0.0.1 (localhost), which is refusing to perform recursive queries. \n * The same IP address also makes requests for PTR records (75.231.168.192.in-addr.arpa and 56.231.168.192.in-addr.arpa) that are forwarded to an external DNS server (8.8.8.8). * The response from the internal nameserver (127.0.0.1) includes a domain name (smtp.davey.russellmitchell.com), which suggests that the DNS server is being used as a proxy for a legitimate-looking but potentially malicious communication. These patterns are indicative of a possible DNS tunneling or exfiltration attempt, where an attacker uses a DNS query to send or receive data. Further investigation and analysis may be necessary to confirm the malicious activity."}'
 json_parsed = json.loads(test)
 
-print(type(json_parsed.get("malicious")))
+print(type(json_parsed.get("malicious"))) """
+test= False
+
+if not test:
+    print("true")
+else:
+    print("false")

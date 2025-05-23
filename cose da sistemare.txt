@@ -1,10 +1,10 @@
 la mia vita
 
-malformed json: controllare che con rf"{content}" i caratteri tipo \n e simili non dovrebbero più rompere tutto.
+malformed json: controllare che con rf"{content}" i caratteri tipo \n e simili non dovrebbero più rompere tutto. DONE CIRCA
     o rigenerare
     o segnare che il modello non rispetta il prompt
 
-timestamps: start time should consider il primo lookback
+timestamps: start time should consider il primo lookback  DONE
 
 false positives: "imma a duck" malicious:true reason:cleary malicious
 

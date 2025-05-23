@@ -1,4 +1,5 @@
 import json
+import re
 from langchain.chat_models import init_chat_model
 
 
@@ -20,10 +21,20 @@ def model_call(model_name, message):
     response = llm.invoke(messages)
     #print(ai_msg.content)
     try:
-        json_object = json.loads(rf"{response.content}")
+        sanitized_response = response.content.replace("\n","")
+        match = re.search(r'\{.*?\}', f"{sanitized_response}")
+        if match:
+            json_str = match.group(0)
+            # print(json_str)
+        else:
+            raise ValueError
+        json_object = json.loads(f"{json_str}")
         return response, json_object
     except ValueError as e:
         print ("Is valid json? false")
-        print(response.content)
+        # print(response.content)
+        print(sanitized_response)
+        # print(e)
+        return -1, ""
 
     

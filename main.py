@@ -10,17 +10,15 @@ def minute_range(start_datetime: datetime, end_datetime: datetime, step_minutes:
         yield start_datetime + timedelta(minutes=n)
 
 
-def convert_to_bool(input):
-    malicious = input.get("malicious")
-    if type(malicious) == "str":
-        if malicious.lower().strip() in ["true"]:
-            input["malicious"] = True
-        elif malicious.lower().strip() in ["false"]:
-            input["malicious"] = False
+def convert_to_bool(json_value):
+    if isinstance(json_value,str):
+        if json_value.lower().strip() in ["true"]:
+            return True
+        elif json_value.lower().strip() in ["false"]:
+            return False
         else: 
             raise Exception("Errore nella conversione in bool") 
-    return input
-        
+    return json_value        
 
 def print_confusion_matrix(confusion_dict):
     #confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
@@ -30,13 +28,22 @@ def print_confusion_matrix(confusion_dict):
 
 def check_model_output(batch, model_output):
     malicious = model_output.get("malicious")
-    if (batch.labels and malicious) :
+    malicious = convert_to_bool(malicious)
+    print(f"malicious: {malicious}")
+    print(f"malicious type: {type(malicious)}")
+    print(f"labels: {batch.labels}") 
+    print(f"labels_present: {batch.labels}") 
+    if (batch.labels) and (malicious == True):
+        print("TP\n")
         return "TP"
-    elif (not batch.labels) and (not malicious):
+    elif (not batch.labels) and (malicious == False):
+        print("TN\n")
         return "TN"
-    elif (batch.labels) and (not malicious):
+    elif (batch.labels) and (malicious == False):
+        print("FN\n")
         return "FN"
     else:
+        print("FP\n")
         return "FP"
         
 def save_model_output(batch, model_output):
@@ -55,7 +62,8 @@ if __name__ == "__main__":
     
     step_minutes=10
     overlap_minutes=1
-    max_batch_size=10
+    max_batch_size=20
+    overlap_percentage = 0.1
     
     model_output_dir = "./model_output"
     model_output_file = "model_output.txt"    
@@ -66,19 +74,37 @@ if __name__ == "__main__":
     if os.path.exists(os.path.join(model_output_dir,model_output_file)):
         os.remove(os.path.join(model_output_dir,model_output_file))
     
-    batch_counter = 0    
+    batch_counter = 0
+    malformed_counter = 0  
+    i = 0  
     for current_time in minute_range(start_time, end_time, step_minutes):
-        batch_list=prepare_batches(current_time,step_minutes+overlap_minutes,max_batch_size,True)
+        batch_list=prepare_batches(reference_time=current_time,
+                                   lookback_minutes=step_minutes,
+                                   batch_size=max_batch_size,
+                                   overlap_minutes=overlap_minutes,
+                                   overlap_percentage=overlap_percentage,
+                                   multihost=True)
         batch_counter += len(batch_list)
         print(len(batch_list))
         for batch in batch_list:
-            response, json_content = model_call("llama3.1",batch.get_batch_as_string())
+            response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
+            if response == -1:
+                malformed_counter += 1
+                continue
             json_content = convert_to_bool(json_content)
             save_model_output(batch, json_content)
             confusion_dict[check_model_output(batch, json_content)] += 1
-                    
+            i+=1
+            if i > 10:
+                break
+        if i>10:
+            break
+
+            
+
     print_confusion_matrix(confusion_dict)
     print(f"Number of Batches: {batch_counter}")
+    print(f"Malformed outputs: {malformed_counter}")
 
 
     
