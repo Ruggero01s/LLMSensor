@@ -3,6 +3,8 @@ from prepocessing import prepare_batches, Batch
 from model import model_call
 import json
 import os
+import time
+
 
 def minute_range(start_datetime: datetime, end_datetime: datetime, step_minutes: int):
     total_minutes = int((end_datetime - start_datetime).total_seconds() / 60)
@@ -25,25 +27,29 @@ def print_confusion_matrix(confusion_dict):
     print("Confusion Matrix:")
     print("\tTP\tTN\tFP\tFN")
     print(f"\t{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}")
+    
+def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter):
+    str_to_write = (
+        f"Confusion Matrix:\n"
+        f"TP\tTN\tFP\tFN\n"
+        f"{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}\n\n"
+        f"Time elapsed: {time_elapsed}\n"
+        f"Batch processed: {batch_counter}\n"
+        f"Malformed outputs: {malformed_counter}"
+        )
+    with open(output_file, "a") as out_file:
+            out_file.write(str_to_write)
 
 def check_model_output(batch, model_output):
     malicious = model_output.get("malicious")
     malicious = convert_to_bool(malicious)
-    print(f"malicious: {malicious}")
-    print(f"malicious type: {type(malicious)}")
-    print(f"labels: {batch.labels}") 
-    print(f"labels_present: {batch.labels}") 
     if (batch.labels) and (malicious == True):
-        print("TP\n")
         return "TP"
     elif (not batch.labels) and (malicious == False):
-        print("TN\n")
         return "TN"
     elif (batch.labels) and (malicious == False):
-        print("FN\n")
         return "FN"
     else:
-        print("FP\n")
         return "FP"
         
 def save_model_output(batch, model_output):
@@ -54,7 +60,7 @@ def save_model_output(batch, model_output):
             out_file.write(str(batch))
             out_file.write(f"\nMalicious:{malicious}\nReason:{reason}\n\n")
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     # start_time = datetime(2022, 1, 21, 0, 0, 0, 0)
     # end_time = datetime(2022, 1, 25, 0, 0, 0, 0)
     start_time = datetime(2022, 1, 23, 11, 00, 0, 0)
@@ -66,17 +72,20 @@ if __name__ == "__main__":
     overlap_percentage = 0.1
     
     model_output_dir = "./model_output"
-    model_output_file = "model_output.txt"    
+    current_time = datetime.now()
+    current_time = current_time.strftime("%Y%m%d_%H%M%S")
+    model_output_file = f"model_output_{current_time}.txt"    
+    
+    output_file = os.path.join(model_output_dir,model_output_file)
     
     confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
     
     os.makedirs(model_output_dir, exist_ok=True)
-    if os.path.exists(os.path.join(model_output_dir,model_output_file)):
-        os.remove(os.path.join(model_output_dir,model_output_file))
     
     batch_counter = 0
     malformed_counter = 0  
     i = 0  
+    st_t = time.perf_counter()
     for current_time in minute_range(start_time, end_time, step_minutes):
         batch_list=prepare_batches(reference_time=current_time,
                                    lookback_minutes=step_minutes,
@@ -85,28 +94,31 @@ if __name__ == "__main__":
                                    overlap_percentage=overlap_percentage,
                                    multihost=True)
         batch_counter += len(batch_list)
-        print(len(batch_list))
+        # print(len(batch_list))
         for batch in batch_list:
-            print(batch)
-    #         response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
-    #         if response == -1:
-    #             malformed_counter += 1
-    #             continue
-    #         json_content = convert_to_bool(json_content)
-    #         save_model_output(batch, json_content)
-    #         confusion_dict[check_model_output(batch, json_content)] += 1
+            # print(batch)
+            start_time = time.perf_counter()
+            response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
+            end_time = time.perf_counter()
+            time_taken = end_time - start_time
+            print(f"Time taken for model call: {time_taken:.2f} seconds")
+            if response == -1:
+                malformed_counter += 1
+                continue
+            json_content = convert_to_bool(json_content)
+            save_model_output(batch, json_content)
+            confusion_dict[check_model_output(batch, json_content)] += 1
             i+=1
-            if i > 3:
-                break
-        if i>3:
-            break
-
+        #     if i > 3:
+        #         break
+        # if i>3:
+        #     break
+    en_t = time.perf_counter()
+    
+    time_elapsed = en_t - st_t
             
 
-    print_confusion_matrix(confusion_dict)
-    print(f"Number of Batches: {batch_counter}")
-    print(f"Malformed outputs: {malformed_counter}")
-
+    save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter)
 
     
     # batches = prepare_batches(dt2,10,10,True)

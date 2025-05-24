@@ -131,17 +131,6 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
     overlap_size=round(overlap_percentage * batch_size)
     host_logs, overlap_logs = divide_by_host_and_timeframe(start_time, reference_time, overlap_minutes, max_overlap_logs=overlap_size)
     batches = []
-
-    # if multihost:
-    #     all_lines = [entry for lines in host_logs.values() for entry in lines]
-    #     for i in range(0, len(all_lines), batch_size):
-    #         if 
-    #         batches.append(Batch(all_lines[i:i + batch_size], reference_time))
-    # else:
-    #     for host, lines in host_logs.items():
-    #         for i in range(0, len(lines), batch_size):
-    #             batches.append(Batch(lines[i:i + batch_size], reference_time))
-    
     
     if multihost:
         all_lines = [entry for lines in host_logs.values() for entry in lines]
@@ -153,7 +142,6 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
         actual_batch=len(temp)
         i=0
         while i < len(all_lines): 
-        # for i in range(0, len(all_lines)): #! range crea un iterable, i viene settato al prossimo elemento ogni volta che finisce un ciclo, quindi il suo valore attuale viene ignorato
             if(actual_batch<batch_size-1):
                 temp.append(all_lines[i])
                 actual_batch+=1
@@ -173,12 +161,12 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
             else:
                 temp = overlap_logs[host]
             actual_batch=len(temp)
-            for i in range(0, len(lines)):
+            while i < len(lines): 
                 if(actual_batch<batch_size-1):
-                    temp.append(all_lines[i])
+                    temp.append(lines[i])
                     actual_batch+=1
                 else:
-                    temp.append(all_lines[i])
+                    temp.append(lines[i])
                     batches.append(Batch(temp, reference_time))
                     actual_batch=0
                     temp=[]
