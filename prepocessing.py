@@ -20,33 +20,38 @@ class Batch:
         self.sources = self.extract_sources()
 
     def __repr__(self):
-        
         short_lines = []
         for l in self.lines:
-            short_lines.append(l[:10]+"...."+l[-10:])
+            line_parts = l.split("|")
+            short_lines.append(f"{line_parts[0]}| {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
         line_with_index = list(zip(self.line_indexes, short_lines))
         lines_to_print = []
         for i, l in line_with_index:
             lines_to_print.append(f"{i} | {l}")
-        return (
+        return_string =(
             f"Batch:\n\tTimestamp: {self.reference_timestamp}\n\t"
-            f"Sources: {self.sources}\n\tLabels: {self.labels}\n\t"
-            f"Lines: {[ l for l in lines_to_print]}"
+            f"Sources: {self.sources}\n\tLabels: {self.labels}\n"
         )
+        for l in lines_to_print:
+            return_string += f"\t{l}"
+        return return_string.strip()
         
     def __str__(self):
         short_lines = []
         for l in self.lines:
-            short_lines.append(l[:10]+"...."+l[-10:])
+            line_parts = l.split("|")
+            short_lines.append(f"{line_parts[0]}| {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
         line_with_index = list(zip(self.line_indexes, short_lines))
         lines_to_print = []
         for i, l in line_with_index:
             lines_to_print.append(f"{i} | {l}")
-        return (
+        return_string =(
             f"Batch:\n\tTimestamp: {self.reference_timestamp}\n\t"
-            f"Sources: {self.sources}\n\tLabels: {self.labels}\n\t"
-            f"Lines: {[ l for l in lines_to_print]}"
+            f"Sources: {self.sources}\n\tLabels: {self.labels}\n"
         )
+        for l in lines_to_print:
+            return_string += f"\t{l}"
+        return return_string.strip()
 
     def get_batch_as_string(self):
         return ''.join(self.lines)
@@ -146,7 +151,9 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
         else:
             temp = all_lines_overlap
         actual_batch=len(temp)
-        for i in range(0, len(all_lines)):
+        i=0
+        while i < len(all_lines): 
+        # for i in range(0, len(all_lines)): #! range crea un iterable, i viene settato al prossimo elemento ogni volta che finisce un ciclo, quindi il suo valore attuale viene ignorato
             if(actual_batch<batch_size-1):
                 temp.append(all_lines[i])
                 actual_batch+=1
@@ -155,7 +162,8 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
                 batches.append(Batch(temp, reference_time))
                 actual_batch=0
                 temp=[]
-                i-= overlap_size+10 #questa linea non fa niente non capisco perchè
+                i-= (overlap_size)
+            i+=1
         if(temp): #for last batch
             batches.append(Batch(temp, reference_time))    
     else:

@@ -95,11 +95,11 @@ if __name__ == "__main__":
     #         json_content = convert_to_bool(json_content)
     #         save_model_output(batch, json_content)
     #         confusion_dict[check_model_output(batch, json_content)] += 1
-    #         i+=1
-    #         if i > 10:
-    #             break
-    #     if i>10:
-    #         break
+            i+=1
+            if i > 3:
+                break
+        if i>3:
+            break
 
             
 
