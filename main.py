@@ -19,7 +19,8 @@ def convert_to_bool(json_value):
         elif json_value.lower().strip() in ["false"]:
             return False
         else: 
-            raise Exception("Errore nella conversione in bool") 
+            print("Errore nella conversione in bool")
+            return -1
     return json_value        
 
 def print_confusion_matrix(confusion_dict):
@@ -28,14 +29,31 @@ def print_confusion_matrix(confusion_dict):
     print("\tTP\tTN\tFP\tFN")
     print(f"\t{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}")
     
-def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter):
+def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter, flagged_characters_percentage, model_name, system_prompt_main, system_prompt_rag, multihost, rag_embedding):
+    accuracy, precision, recall, f1 = calculate_metrics(confusion_dict=confusion_dict)
     str_to_write = (
+        f"------------------------------\n"
         f"Confusion Matrix:\n"
         f"TP\tTN\tFP\tFN\n"
         f"{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}\n\n"
+        f"------------------------------\n"
+        f"Metrics:\n"
+        f"\tAccuracy: {accuracy}%\n"
+        f"\tPrecision: {precision}%\n"
+        f"\tRecall: {recall}%\n"
+        f"\tF1: {f1}%\n"
+        f"\tFlagged characters percentage: {flagged_characters_percentage}%\n\n"
+        f"------------------------------\n"
         f"Time elapsed: {time_elapsed}\n"
         f"Batch processed: {batch_counter}\n"
-        f"Malformed outputs: {malformed_counter}"
+        f"Malformed outputs: {malformed_counter}\n"
+        f"------------------------------\n"
+        f"Model: {model_name}\n"
+        f"System prompt main: {system_prompt_main}\n"
+        f"System prompt rag: {system_prompt_rag}\n"
+        f"Multihost: {multihost}\n"
+        f"RAG embedding: {rag_embedding}\n"
+        f"------------------------------\n"
         )
     with open(output_file, "a") as out_file:
             out_file.write(str_to_write)
@@ -43,6 +61,8 @@ def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, 
 def check_model_output(batch, model_output):
     malicious = model_output.get("malicious")
     malicious = convert_to_bool(malicious)
+    if malicious == -1:
+        return -1
     if (batch.labels) and (malicious == True):
         return "TP"
     elif (not batch.labels) and (malicious == False):
@@ -52,96 +72,158 @@ def check_model_output(batch, model_output):
     else:
         return "FP"
         
-def save_model_output(batch, model_output):
-    malicious = model_output.get("malicious")
-    if malicious:
-        reason = model_output.get("reason")
-        with open(os.path.join(model_output_dir,model_output_file), "a") as out_file:
-            out_file.write(str(batch))
-            out_file.write(f"\nMalicious:{malicious}\nReason:{reason}\n\n")
+def save_model_output(batch, model_output, out_path):
+    with open(out_path, "a") as out_file:
+        out_file.write(str(batch))
+        out_file.write(f"\n{model_output}\n\n")
+            
+            
+def calculate_metrics(confusion_dict):
+    if (confusion_dict["TP"]+confusion_dict["TN"]+confusion_dict["FP"]+confusion_dict["FN"]) == 0:
+        accuracy = -1
+    else:
+        accuracy = (confusion_dict["TP"]+confusion_dict["TN"])/(confusion_dict["TP"]+confusion_dict["TN"]+confusion_dict["FP"]+confusion_dict["FN"])
+    if confusion_dict["TP"]+confusion_dict["FP"] == 0:
+        precision = -1
+    else:
+        precision = confusion_dict["TP"]/(confusion_dict["TP"]+confusion_dict["FP"])
+    if (confusion_dict["TP"]+confusion_dict["FN"]) == 0:
+        recall = -1
+    else:
+        recall = confusion_dict["TP"]/(confusion_dict["TP"]+confusion_dict["FN"])
+    if precision == -1 or recall == -1:
+        f1 = -1
+    else:
+        f1=2*(precision*recall)/(precision+recall)
+    
+    return accuracy*100, precision*100, recall*100, f1*100
+
+def calculate_character_counter(classification, batch):
+    #todo should be done with model_output and not use the labels
+    local_count=0
+    flagged_character_count = 0
+    for line in batch.lines:
+        local_count+= len(line.split("|")[2])
+    
+    if classification== "TP" or classification== "FP":
+        flagged_character_count = local_count
+        
+    return local_count, flagged_character_count
+    
 
 if __name__ == "__main__": 
+    
+    windows = [
+               (datetime(2022, 1, 23, 7, 50, 0, 0),datetime(2022, 1, 23, 8, 0, 0, 0)), # Apache access log
+               (datetime(2022, 1, 23, 11, 00, 0, 0),datetime(2022, 1, 23, 11, 10, 0, 0)), #lot of dns
+               (datetime(2022, 1, 24, 3, 50, 0, 0),datetime(2022, 1, 24, 4, 0, 0, 0)), # Apache error log
+               (datetime(2022, 1, 21, 6, 25, 0, 0),datetime(2022, 1, 21, 6, 35, 0, 0)), #Suricata
+               (datetime(2022, 1, 24, 1, 10, 0, 0),datetime(2022, 1, 24, 1, 20, 0, 0)), #Internal share audit
+               (datetime(2022, 1, 23, 5, 8, 0, 0),datetime(2022, 1, 23, 5, 18, 0, 0)), #syslog
+               ]
     # start_time = datetime(2022, 1, 21, 0, 0, 0, 0)
     # end_time = datetime(2022, 1, 25, 0, 0, 0, 0)
-    start_time = datetime(2022, 1, 23, 11, 00, 0, 0)
-    end_time = datetime(2022, 1, 23, 11, 10, 0, 0)
+    # start_time = datetime(2022, 1, 23, 11, 00, 0, 0)
+    # end_time = datetime(2022, 1, 23, 11, 10, 0, 0)
     
     step_minutes=10
     overlap_minutes=1
     max_batch_size=20
     overlap_percentage = 0.1
     
-    model_output_dir = "./model_output"
+    model_name = "mistral-nemo:latest"
+    # model_name = "gemma3:12b"
+    
+    multihost = True #todo da controllare singlehost esplode
+    
     current_time = datetime.now()
     current_time = current_time.strftime("%Y%m%d_%H%M%S")
-    model_output_file = f"model_output_{current_time}.txt"    
-    
-    output_file = os.path.join(model_output_dir,model_output_file)
-    
-    confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+    model_output_dir = f"./model_output/model_output_{current_time}"    
     
     os.makedirs(model_output_dir, exist_ok=True)
-    
+
+    i = 0
     batch_counter = 0
     malformed_counter = 0  
-    i = 0  
-    st_t = time.perf_counter()
-    for current_time in minute_range(start_time, end_time, step_minutes):
-        batch_list=prepare_batches(reference_time=current_time,
-                                   lookback_minutes=step_minutes,
-                                   batch_size=max_batch_size,
-                                   overlap_minutes=overlap_minutes,
-                                   overlap_percentage=overlap_percentage,
-                                   multihost=True)
-        batch_counter += len(batch_list)
-        # print(len(batch_list))
-        for batch in batch_list:
-            # print(batch)
-            start_time = time.perf_counter()
-            response, json_content = model_call("qwen2.5-coder:14b",batch.get_batch_as_string())
-            end_time = time.perf_counter()
-            time_taken = end_time - start_time
-            print(f"Time taken for model call: {time_taken:.2f} seconds")
-            if response == -1:
-                malformed_counter += 1
-                continue
-            json_content = convert_to_bool(json_content)
-            save_model_output(batch, json_content)
-            confusion_dict[check_model_output(batch, json_content)] += 1
-            i+=1
-        #     if i > 3:
-        #         break
-        # if i>3:
-        #     break
-    en_t = time.perf_counter()
-    
-    time_elapsed = en_t - st_t
+    total_character_count = 0 
+    total_flagged_character_count=0  
+    for start_time , end_time in windows:
+        st_t = time.perf_counter()
+        confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+
+        output_file = os.path.join(model_output_dir, f"model_output_{start_time}-{end_time}.txt")
+        for current_time in minute_range(start_time, end_time, step_minutes):
+            batch_list=prepare_batches(reference_time=current_time,
+                                    lookback_minutes=step_minutes,
+                                    batch_size=max_batch_size,
+                                    overlap_minutes=overlap_minutes,
+                                    overlap_percentage=overlap_percentage,
+                                    multihost=multihost)
+            batch_counter += len(batch_list)
+            for batch in batch_list:
+                # print(batch)
+                
+                start_time = time.perf_counter()
+                response, json_content = model_call(model_name,batch.get_batch_as_string())
+                end_time = time.perf_counter()
+                
+                time_taken = end_time - start_time
+                
+                print(f"Processed batch: {i}")
+                print(f"Time taken for model call: {time_taken:.2f} seconds\n")
+                
+                if response == -1:
+                    malformed_counter += 1
+                    continue
+                
+                #? why we do two time convert to bool?
+                # json_content = convert_to_bool(json_content)
+                
+                # if json_content == -1:
+                #     malformed_counter+=1
+                #     continue
+                save_model_output(batch, json_content, output_file)
+                
+                classification =check_model_output(batch, json_content)
+                if classification == -1:
+                    malformed_counter += 1
+                    continue
+                confusion_dict[classification] += 1
+                
+                character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
+
+                total_character_count += character_count
+                total_flagged_character_count += flagged_character_count
+                
             
+                i+=1
+            #     if i > 4:
+            #         break
+            # if i>4:
+            #     break
+    
+        en_t = time.perf_counter()
+        
+        time_elapsed = en_t - st_t
+        
+        if total_character_count != 0:
+            flagged_characters_percentage=total_flagged_character_count/total_character_count*100
+        else:
+            flagged_characters_percentage = -1
 
-    save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter)
-
-    
-    # batches = prepare_batches(dt2,10,10,True)
-    # print("Finished batching")
-    
-    #todo encapsulate in a for each
-    
-    # response=model_call("llama3.1",batches[0].get_batch_as_string())
-    # print(response.content) 
-    
-
-    
-    # #todo try catch for malformed responses
-    # response=test
-    # json_response = json.loads(response)
-    # classification = json_response.get("malicious")
-    # print(f"Malicious: {classification}")
-    # if classification.lower().strip() in ["true", "yes"]: #in case of strange behavior
-    #     reason = json_response.get("reason")
-    #     print(f"Reason: {reason}")
-    #     with open(os.path.join(model_output_dir,model_output_file), "a") as out_file:
-    #         out_file.write(str(batches[0]))
-    #         out_file.write(f"\nMalicious:{classification}\n Reason:{reason}")
+        save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
+                          system_prompt_main='You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "reason": "Only if malicious is true"}  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.',
+                          system_prompt_rag="",
+                          model_name=model_name,
+                          multihost=multihost,
+                          rag_embedding="nomic-embed-text")
+        batch_counter = 0
+        malformed_counter = 0  
+        total_character_count = 0 
+        total_flagged_character_count=0
+        
+        # if i>4:
+        #     break
     
 
         

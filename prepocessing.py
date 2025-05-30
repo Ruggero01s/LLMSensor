@@ -23,7 +23,7 @@ class Batch:
         short_lines = []
         for l in self.lines:
             line_parts = l.split("|")
-            short_lines.append(f"{line_parts[0]}| {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
+            short_lines.append(f"{line_parts[0]} | {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
         line_with_index = list(zip(self.line_indexes, short_lines))
         lines_to_print = []
         for i, l in line_with_index:
@@ -40,7 +40,7 @@ class Batch:
         short_lines = []
         for l in self.lines:
             line_parts = l.split("|")
-            short_lines.append(f"{line_parts[0]}| {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
+            short_lines.append(f"{line_parts[0]} | {line_parts[1]} | {line_parts[2][:10]}....{line_parts[2][-10:]}")
         line_with_index = list(zip(self.line_indexes, short_lines))
         lines_to_print = []
         for i, l in line_with_index:
@@ -133,8 +133,13 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
     batches = []
     
     if multihost:
+        # Collect all lines from all hosts and sort them by timestamp
         all_lines = [entry for lines in host_logs.values() for entry in lines]
+        all_lines.sort(key=lambda entry: datetime.strptime(entry[1].split("|")[1].split("=")[1].strip(), FORMAT_PATTERN))
+        
+        # Do the same sorting for overlap logs
         all_lines_overlap = [entry for lines in overlap_logs.values() for entry in lines]
+        all_lines_overlap.sort(key=lambda entry: datetime.strptime(entry[1].split("|")[1].split("=")[1].strip(), FORMAT_PATTERN))
         if len(all_lines_overlap) > overlap_size:
             temp = all_lines_overlap[-overlap_size:]
         else:
@@ -155,6 +160,7 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
         if(temp): #for last batch
             batches.append(Batch(temp, reference_time))    
     else:
+        i=0
         for host, lines in host_logs.items():
             if len(overlap_logs[host]) > overlap_size:
                 temp = overlap_logs[host][-overlap_size:]

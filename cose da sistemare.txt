@@ -9,3 +9,23 @@ timestamps: start time should consider il primo lookback  DONE
 false positives: "imma a duck" malicious:true reason:cleary malicious
 
 batch size > 10 lo rompe, si dimentica che devono essere json
+
+test da fare:
+    single/multihost
+
+    Cambiare modello:
+        mistral nemo
+        qwen2.5 coder
+        deepseek r1
+        llama 3.1
+    Con senza rag / assieme system prompt
+
+    finetuning system prompt
+    struttura rag
+
+    Cambiare modello di encoding del rag
+    Cambiare stuttura del rag
+    Cambiare system prompt
+    Cambiare modello 
+    Provare single-multi host
+    
