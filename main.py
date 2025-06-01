@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from prepocessing import prepare_batches, Batch
+from prepocessing_russell import prepare_batches, Batch
 from model import model_call
 import json
 import os
@@ -29,7 +29,7 @@ def print_confusion_matrix(confusion_dict):
     print("\tTP\tTN\tFP\tFN")
     print(f"\t{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}")
     
-def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter, flagged_characters_percentage, model_name, system_prompt_main, system_prompt_rag, multihost, rag_embedding):
+def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter, flagged_characters_percentage, model_name, system_prompt_main, system_prompt_rag="", multihost=True, rag_embedding=""):
     accuracy, precision, recall, f1 = calculate_metrics(confusion_dict=confusion_dict)
     str_to_write = (
         f"------------------------------\n"
@@ -91,7 +91,7 @@ def calculate_metrics(confusion_dict):
         recall = -1
     else:
         recall = confusion_dict["TP"]/(confusion_dict["TP"]+confusion_dict["FN"])
-    if precision == -1 or recall == -1:
+    if precision <= -1 or recall <= -1:
         f1 = -1
     else:
         f1=2*(precision*recall)/(precision+recall)
@@ -164,7 +164,7 @@ if __name__ == "__main__":
                 # print(batch)
                 
                 start_time = time.perf_counter()
-                response, json_content = model_call(model_name,batch.get_batch_as_string())
+                response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False)
                 end_time = time.perf_counter()
                 
                 time_taken = end_time - start_time
@@ -212,7 +212,7 @@ if __name__ == "__main__":
             flagged_characters_percentage = -1
 
         save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
-                          system_prompt_main='You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "reason": "Only if malicious is true"}  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.',
+                          system_prompt_main='Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.',
                           system_prompt_rag="",
                           model_name=model_name,
                           multihost=multihost,

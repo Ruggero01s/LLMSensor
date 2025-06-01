@@ -70,6 +70,8 @@ Thumbs.db
 #Dataset
 /russellmitchell
 /collected_logs
+/collected_flows
 /model_output
 /embeddings_cache
 /enterprise-attack-v17.1.csv
+/IOT_Flow

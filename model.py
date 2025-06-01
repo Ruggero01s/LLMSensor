@@ -6,7 +6,7 @@ from rag import search_in_rag
 
 
 def model_call(model_name, message, rag=False):
-    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "reason": "Only if malicious is true"}  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.'
+    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}.  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     sys_prompt_threat_hunting = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
@@ -26,7 +26,7 @@ def model_call(model_name, message, rag=False):
         #     "system",
         #     f"{sys_prompt}",
         # ),
-        ("human", f"{message}\n{sys_prompt_SOC}"),
+        ("human", f"{message}\n{sys_prompt_threat_hunting}"),
     ]
     response = llm.invoke(messages)
     #print(ai_msg.content)
@@ -64,7 +64,7 @@ def model_call(model_name, message, rag=False):
         return -1, ""
 
 def rag_query(llm, message, query):  
-    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.'
+    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     sys_prompt_threat_hunting = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
