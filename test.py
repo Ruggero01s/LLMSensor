@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 file = "collected_flows/BenignTraffic.csv"
 
 cols = ["Src IP","Src Port","Dst IP","Dst Port","Protocol",
@@ -11,9 +12,13 @@ df = df.sample(n=10, random_state=42)  # Randomly sample 1000 rows for testing
 #df to json with one json per row
 json_lines = df.to_json(orient='records', lines=True)
 df_json = json_lines
+
+json_list = json_lines.split('\n')
+
+print(json_list[0])  # Print the first JSON object for verification
+
 df_csv = df.to_csv()
 
-print(df_json)
 from langchain.chat_models import init_chat_model
 
 sys_prompt = 'You are given a batch of packet flows. Your task is to analyze them and determine if they contain malicious activity that requires further investigation. Return only a JSON response in the following format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If you find the batch suspicious, provide a brief explanation in the reason field. If not, simply return {"malicious": "False"}. Output only the JSON. Do not include any additional text or explanations outside of the JSON format.'
@@ -27,6 +32,6 @@ messages = [
     # ),
     ("human", f"{df_json}\n{sys_prompt}"),
 ]
-response = llm.invoke(messages)
+# response = llm.invoke(messages)
 
-print(response.content)
+# print(response.content)

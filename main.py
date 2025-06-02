@@ -1,5 +1,6 @@
 from datetime import timedelta, datetime
-from prepocessing_russell import prepare_batches, Batch
+from preprocessing_russell import prepare_batches_russel, BatchRussell
+from preprocessing_flow import prepare_batches_flow, BatchFlow
 from model import model_call
 import json
 import os
@@ -57,6 +58,35 @@ def save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, 
         )
     with open(output_file, "a") as out_file:
             out_file.write(str_to_write)
+            
+            
+def save_final_result_flow(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter, flagged_characters_percentage, model_name, system_prompt_main, system_prompt_rag="", rag_embedding=""):
+    accuracy, precision, recall, f1 = calculate_metrics(confusion_dict=confusion_dict)
+    str_to_write = (
+        f"------------------------------\n"
+        f"Confusion Matrix:\n"
+        f"TP\tTN\tFP\tFN\n"
+        f"{confusion_dict['TP']}\t{confusion_dict['TN']}\t{confusion_dict['FP']}\t{confusion_dict['FN']}\n\n"
+        f"------------------------------\n"
+        f"Metrics:\n"
+        f"\tAccuracy: {accuracy}%\n"
+        f"\tPrecision: {precision}%\n"
+        f"\tRecall: {recall}%\n"
+        f"\tF1: {f1}%\n"
+        f"\tFlagged characters percentage: {flagged_characters_percentage}%\n\n"
+        f"------------------------------\n"
+        f"Time elapsed: {time_elapsed}\n"
+        f"Batch processed: {batch_counter}\n"
+        f"Malformed outputs: {malformed_counter}\n"
+        f"------------------------------\n"
+        f"Model: {model_name}\n"
+        f"System prompt main: {system_prompt_main}\n"
+        f"System prompt rag: {system_prompt_rag}\n"
+        f"RAG embedding: {rag_embedding}\n"
+        f"------------------------------\n"
+        )
+    with open(output_file, "a") as out_file:
+            out_file.write(str_to_write)
 
 def check_model_output(batch, model_output):
     malicious = model_output.get("malicious")
@@ -109,10 +139,8 @@ def calculate_character_counter(classification, batch):
         flagged_character_count = local_count
         
     return local_count, flagged_character_count
-    
 
-if __name__ == "__main__": 
-    
+def process_russel():
     windows = [
                (datetime(2022, 1, 23, 7, 50, 0, 0),datetime(2022, 1, 23, 8, 0, 0, 0)), # Apache access log
                (datetime(2022, 1, 23, 11, 00, 0, 0),datetime(2022, 1, 23, 11, 10, 0, 0)), #lot of dns
@@ -147,13 +175,35 @@ if __name__ == "__main__":
     malformed_counter = 0  
     total_character_count = 0 
     total_flagged_character_count=0  
+    
+    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}.  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    
+    sys_prompt_threat_hunting = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
+    
+    sys_prompt_cybersec_exp = 'You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
+    
+    sys_prompt_SOC_for_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.'
+    
+    sys_prompt_threat_hunting_for_rag = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
+    
+    sys_prompt_cybersec_exp_for_rag = 'You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Output only the JSON.'
+
+    #RAG
+    
+    sys_prompt_SOC_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    
+    sys_prompt_threat_hunting_rag = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
+    
+    sys_prompt_cybersec_exp_rag = 'You are a cybersecurity expert. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
+
+    
     for start_time , end_time in windows:
         st_t = time.perf_counter()
         confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
 
         output_file = os.path.join(model_output_dir, f"model_output_{start_time}-{end_time}.txt")
         for current_time in minute_range(start_time, end_time, step_minutes):
-            batch_list=prepare_batches(reference_time=current_time,
+            batch_list=prepare_batches_russel(reference_time=current_time,
                                     lookback_minutes=step_minutes,
                                     batch_size=max_batch_size,
                                     overlap_minutes=overlap_minutes,
@@ -164,7 +214,7 @@ if __name__ == "__main__":
                 # print(batch)
                 
                 start_time = time.perf_counter()
-                response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False)
+                response, json_content = model_call(model_name,batch.get_batch_as_string(), False, sys_prompt_cybersec_exp, sys_prompt_SOC_rag)
                 end_time = time.perf_counter()
                 
                 time_taken = end_time - start_time
@@ -184,7 +234,7 @@ if __name__ == "__main__":
                 #     continue
                 save_model_output(batch, json_content, output_file)
                 
-                classification =check_model_output(batch, json_content)
+                classification = check_model_output(batch, json_content)
                 if classification == -1:
                     malformed_counter += 1
                     continue
@@ -212,7 +262,7 @@ if __name__ == "__main__":
             flagged_characters_percentage = -1
 
         save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
-                          system_prompt_main='Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.',
+                          system_prompt_main='You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.',
                           system_prompt_rag="",
                           model_name=model_name,
                           multihost=multihost,
@@ -224,6 +274,88 @@ if __name__ == "__main__":
         
         # if i>4:
         #     break
+
+def process_flow():
+    num_batches = 3
+    max_batch_size=20
+    max_benign_percentage = 0.8
+    
+    model_name = "mistral-nemo:latest"
+    # model_name = "gemma3:12b"
+    
+    current_time = datetime.now()
+    current_time = current_time.strftime("%Y%m%d_%H%M%S")
+    model_output_dir = f"./model_output_flow/"    
+    
+    os.makedirs(model_output_dir, exist_ok=True)
+
+    i = 0
+    batch_counter = 0
+    malformed_counter = 0  
+    total_character_count = 0 
+    total_flagged_character_count=0
+    st_t = time.perf_counter()
+    confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+
+    output_file = os.path.join(model_output_dir, f"model_output_{current_time}.txt")
+    batch_list=prepare_batches_flow(num_batches=num_batches,
+                                    batch_size=max_batch_size,
+                                    max_benign_percentage=max_benign_percentage)
+    batch_counter = len(batch_list)
+    for batch in batch_list:
+            # print(batch)
+            
+            start_time = time.perf_counter()
+            response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False)
+            end_time = time.perf_counter()
+            
+            time_taken = end_time - start_time
+            
+            print(f"Processed batch: {i}")
+            print(f"Time taken for model call: {time_taken:.2f} seconds\n")
+            
+            if response == -1:
+                malformed_counter += 1
+                continue
+            
+            #? why we do two time convert to bool?
+            # json_content = convert_to_bool(json_content)
+            
+            # if json_content == -1:
+            #     malformed_counter+=1
+            #     continue
+            save_model_output(batch, json_content, output_file)
+            
+            classification = check_model_output(batch, json_content)
+            if classification == -1:
+                malformed_counter += 1
+                continue
+            confusion_dict[classification] += 1
+            
+            character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
+
+            total_character_count += character_count
+            total_flagged_character_count += flagged_character_count
+    
+            en_t = time.perf_counter()
+        
+            time_elapsed = en_t - st_t
+        
+            if total_character_count != 0:
+                flagged_characters_percentage=total_flagged_character_count/total_character_count*100
+            else:
+                flagged_characters_percentage = -1
+
+            save_final_result_flow(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
+                            system_prompt_main='You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.',
+                            system_prompt_rag="",
+                            model_name=model_name,
+                            rag_embedding="nomic-embed-text")
+
+
+if __name__ == "__main__": 
+    
+    process_flow()
     
 
         

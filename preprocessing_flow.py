@@ -1,9 +1,52 @@
 import pandas as pd
 import os
 import random
-
+import json
 SEARCH_ROOT = "./IOT_Flow"
 OUTPUT_DIR = "./collected_flows"
+BENIGN_FILE =f"{OUTPUT_DIR}/BenignTraffic.csv"
+
+
+class BatchFlow:
+    def __init__(self, json_lines, labels=[]):
+        self.lines = json_lines
+        if labels:
+            self.labels = labels
+        else:
+            self.labels = self.extract_labels()
+
+    def __repr__(self):
+        string = f"Batch:\n\tLabels: {self.labels}\n\tLines:\n"
+        for line in self.lines:
+            string += f"\t\t{line}\n"
+        return string.strip()  # Remove trailing newline for cleaner output
+        
+    def __str__(self):
+        string = f"Batch:\n\tLabels: {self.labels}\n\tLines:\n"
+        for line in self.lines:
+            string += f"\t\t{line}\n"
+        return string.strip() 
+
+    def get_batch_as_string(self):
+        return ''.join(self.lines)
+
+    def extract_labels(self):
+        labels = []
+        for line in self.lines:
+            try:
+                json_line = json.loads(line)
+                if "label" in json_line:
+                    labels.append(json_line["label"])
+            except json.JSONDecodeError:
+                print(f"Error decoding JSON from line: {line}")
+        print(labels)
+        labels = list(set(labels))
+        labels.remove("BenignTraffic")
+        print(labels)
+        return labels
+            
+
+
 
 def read_csv(file, columns):
     df = pd.read_csv(file, usecols=columns)
@@ -20,22 +63,39 @@ def navigate_directory(paths,columns):
         df.to_csv(os.path.join(OUTPUT_DIR, label+".csv"), index=False)
     
     
-def prepare_batches(num_batches, batch_size, benign_percentage):
+def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.9):
     batches = []
     flows_files = [f for f in os.listdir(OUTPUT_DIR) if f.endswith('.csv')]
     for i in range(num_batches):
-        file = random.sample(flows_files)
-        if not file.startswith("Benign"):
-            benign_file = random.choice([f for f in flows_files if f.startswith("Benign")])
-            benign_df = pd.read_csv(os.path.join(OUTPUT_DIR, benign_file))
-            benign_df = benign_df.sample(frac=benign_percentage)
-            df = pd.read_csv(os.path.join(OUTPUT_DIR, file[0]))
-            df = pd.concat([df, benign_df], ignore_index=True)
-        else:
+        #randomize benign percentage
+        benign_percentage = random.uniform(0, max_benign_percentage)  # Randomly choose a percentage between 10% and 90%
+        file = random.choice(flows_files)
+        if file.startswith("Benign"):
             df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
             df = df.sample(n=batch_size)
-            print(df.to_json())
+        else:
+            benign_df = pd.read_csv(BENIGN_FILE)
+            benign_sample_size = int(batch_size * benign_percentage)
+            attack_sample_size = batch_size - benign_sample_size
             
+            benign_sample = benign_df.sample(n=benign_sample_size)
+            attack_sample = pd.read_csv(os.path.join(OUTPUT_DIR, file)).sample(n=attack_sample_size)
+            
+        # Concatenate benign and attack samples
+            df = pd.concat([benign_sample, attack_sample], ignore_index=True)
+            df = df.sample(frac=1).reset_index(drop=True)  # Shuffle the DataFrame
+
+        
+        temp_batch_string = df.to_json(orient='records', lines=True)
+        temp_batch_lines = temp_batch_string.split('\n')
+        temp_batch_lines = temp_batch_lines[:-1]
+        temp_BatchFlow = BatchFlow(temp_batch_lines)
+        df.drop(columns=['label'], inplace=True, errors='ignore')  # Drop label column if it exists
+        batch_string = df.to_json(orient='records', lines=True)
+        batch_lines = batch_string.split('\n')
+        batch_lines = batch_lines[:-1]
+        batches.append(BatchFlow(batch_lines, temp_BatchFlow.labels))
+        return batches
 
 if __name__ == "__main__":
     cols = ["Src IP","Src Port","Dst IP","Dst Port","Protocol",
@@ -74,8 +134,10 @@ if __name__ == "__main__":
             "SQL_injection/SqlInjection.pcap_Flow.csv",
             "XSS/XSS.pcap_Flow.csv"
             ]
-    navigate_directory(paths=paths,columns=cols)
-
+    #navigate_directory(paths=paths,columns=cols)
+    batches = prepare_batches_flow(num_batches=10, batch_size=20, max_benign_percentage=0.7)
+    for i, batch in enumerate(batches):
+        print(batch)
 #due modi, o si mischia nei file di attacco delle linee di benign, oppure si prende una batch intera da un file cambiando file ogni batch
 #meccanismo per la scelta del file
 #se benign, allora prendi solo quello

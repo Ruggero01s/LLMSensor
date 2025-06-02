@@ -11,7 +11,7 @@ COLLECTED_LOGS_DIR = "./collected_logs"
 SEARCH_ROOT = "./russellmitchell"
 FORMAT_PATTERN = "%Y-%m-%d %H:%M:%S"
 
-class Batch:
+class BatchRussell:
     def __init__(self, lines, reference_timestamp):
         self.lines = [line for _, line in lines]
         self.line_indexes = [i for i, _ in lines]
@@ -125,7 +125,7 @@ def divide_by_host_and_timeframe(start_time, end_time, overlap_minutes, max_over
     
     return windows, overlap_dict
 
-def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minutes, overlap_percentage, multihost):
+def prepare_batches_russell(reference_time, lookback_minutes, batch_size, overlap_minutes, overlap_percentage, multihost):
     start_time = reference_time - timedelta(minutes=lookback_minutes) #todo rename lookback to qualcosa che ha senso, è la dim temporale di una batch
     
     overlap_size=round(overlap_percentage * batch_size)
@@ -152,13 +152,13 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
                 actual_batch+=1
             else:
                 temp.append(all_lines[i])
-                batches.append(Batch(temp, reference_time))
+                batches.append(BatchRussell(temp, reference_time))
                 actual_batch=0
                 temp=[]
                 i-= (overlap_size)
             i+=1
         if(temp): #for last batch
-            batches.append(Batch(temp, reference_time))    
+            batches.append(BatchRussell(temp, reference_time))    
     else:
         i=0
         for host, lines in host_logs.items():
@@ -173,12 +173,12 @@ def prepare_batches(reference_time, lookback_minutes, batch_size, overlap_minute
                     actual_batch+=1
                 else:
                     temp.append(lines[i])
-                    batches.append(Batch(temp, reference_time))
+                    batches.append(BatchRussell(temp, reference_time))
                     actual_batch=0
                     temp=[]
                     i-= overlap_size
             if(temp):
-                batches.append(Batch(temp, reference_time))  
+                batches.append(BatchRussell(temp, reference_time))  
     return batches
 
 def copy_rename_preprocess(paths):
@@ -321,7 +321,7 @@ if __name__ == "__main__":
     #copy_rename_preprocess(paths)
     dt1 = datetime(2022, 1, 21, 11, 12, 0, 0)
     dt2 = datetime(2022, 1, 23, 11, 20, 0, 0)
-    batches = prepare_batches(dt2,10,10,True)
+    batches = prepare_batches_russell(dt2,10,10,True)
     for batch in batches:
         if batch.labels:
             print(batch)
