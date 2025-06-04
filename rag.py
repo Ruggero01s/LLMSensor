@@ -53,7 +53,7 @@ def search_in_rag(query):
     csv_file = "./enterprise-attack-v17.1.csv"
     columns = ["name", "description", "tactics", "detection"]
     
-    underlying_embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    underlying_embeddings = OllamaEmbeddings(model="bge-m3")
     store = LocalFileStore("./embeddings_cache/")
     cached_embedder = CacheBackedEmbeddings.from_bytes_store(
         underlying_embeddings, store, namespace=underlying_embeddings.model
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     csv_file = "./enterprise-attack-v17.1.csv"
     columns = ["name", "description", "tactics", "detection"]
     
-    underlying_embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    underlying_embeddings = OllamaEmbeddings(model="bge-m3")
     store = LocalFileStore("./embeddings_cache/")
     cached_embedder = CacheBackedEmbeddings.from_bytes_store(
         underlying_embeddings, store, namespace=underlying_embeddings.model

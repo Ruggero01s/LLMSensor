@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from preprocessing_russell import prepare_batches_russel, BatchRussell
+from preprocessing_russell import prepare_batches_russell, BatchRussell
 from preprocessing_flow import prepare_batches_flow, BatchFlow
 from model import model_call
 import json
@@ -133,7 +133,10 @@ def calculate_character_counter(classification, batch):
     local_count=0
     flagged_character_count = 0
     for line in batch.lines:
-        local_count+= len(line.split("|")[2])
+        if line.count("|") > 0:
+            local_count+= len(line.split("|")[2])
+        else:
+            local_count+= len(line)
     
     if classification== "TP" or classification== "FP":
         flagged_character_count = local_count
@@ -144,7 +147,7 @@ def process_russel():
     windows = [
                (datetime(2022, 1, 23, 7, 50, 0, 0),datetime(2022, 1, 23, 8, 0, 0, 0)), # Apache access log
                (datetime(2022, 1, 23, 11, 00, 0, 0),datetime(2022, 1, 23, 11, 10, 0, 0)), #lot of dns
-               (datetime(2022, 1, 24, 3, 50, 0, 0),datetime(2022, 1, 24, 4, 0, 0, 0)), # Apache error log
+               (datetime(2022, 1, 24, 3, 50, 0, 0),datetime(2022, 1, 24, 4, 0, 0, 0)), # Apache error log & VPN
                (datetime(2022, 1, 21, 6, 25, 0, 0),datetime(2022, 1, 21, 6, 35, 0, 0)), #Suricata
                (datetime(2022, 1, 24, 1, 10, 0, 0),datetime(2022, 1, 24, 1, 20, 0, 0)), #Internal share audit
                (datetime(2022, 1, 23, 5, 8, 0, 0),datetime(2022, 1, 23, 5, 18, 0, 0)), #syslog
@@ -203,7 +206,7 @@ def process_russel():
 
         output_file = os.path.join(model_output_dir, f"model_output_{start_time}-{end_time}.txt")
         for current_time in minute_range(start_time, end_time, step_minutes):
-            batch_list=prepare_batches_russel(reference_time=current_time,
+            batch_list=prepare_batches_russell(reference_time=current_time,
                                     lookback_minutes=step_minutes,
                                     batch_size=max_batch_size,
                                     overlap_minutes=overlap_minutes,
@@ -214,7 +217,7 @@ def process_russel():
                 # print(batch)
                 
                 start_time = time.perf_counter()
-                response, json_content = model_call(model_name,batch.get_batch_as_string(), False, sys_prompt_cybersec_exp, sys_prompt_SOC_rag)
+                response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=True,sys_prompt=sys_prompt_SOC_for_rag, sys_prompt_rag=sys_prompt_SOC_rag)
                 end_time = time.perf_counter()
                 
                 time_taken = end_time - start_time
@@ -262,11 +265,11 @@ def process_russel():
             flagged_characters_percentage = -1
 
         save_final_result(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
-                          system_prompt_main='You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.',
-                          system_prompt_rag="",
+                          system_prompt_main=sys_prompt_SOC_for_rag,
+                          system_prompt_rag=sys_prompt_SOC_rag,
                           model_name=model_name,
                           multihost=multihost,
-                          rag_embedding="nomic-embed-text")
+                          rag_embedding="bge-m3:latest")
         batch_counter = 0
         malformed_counter = 0  
         total_character_count = 0 
@@ -276,9 +279,12 @@ def process_russel():
         #     break
 
 def process_flow():
-    num_batches = 3
-    max_batch_size=20
-    max_benign_percentage = 0.8
+    system_prompt_temp = 'You are a network traffic analyst. You have received a batch of network flows which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious flows you must provide your reasoning. Output only the JSON.' 
+    
+    
+    num_batches = 10
+    max_batch_size = 20
+    max_benign_percentage = 0.4
     
     model_name = "mistral-nemo:latest"
     # model_name = "gemma3:12b"
@@ -301,61 +307,65 @@ def process_flow():
     batch_list=prepare_batches_flow(num_batches=num_batches,
                                     batch_size=max_batch_size,
                                     max_benign_percentage=max_benign_percentage)
+    # print(len(batch_list))
     batch_counter = len(batch_list)
     for batch in batch_list:
-            # print(batch)
-            
-            start_time = time.perf_counter()
-            response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False)
-            end_time = time.perf_counter()
-            
-            time_taken = end_time - start_time
-            
-            print(f"Processed batch: {i}")
-            print(f"Time taken for model call: {time_taken:.2f} seconds\n")
-            
-            if response == -1:
-                malformed_counter += 1
-                continue
-            
-            #? why we do two time convert to bool?
-            # json_content = convert_to_bool(json_content)
-            
-            # if json_content == -1:
-            #     malformed_counter+=1
-            #     continue
-            save_model_output(batch, json_content, output_file)
-            
-            classification = check_model_output(batch, json_content)
-            if classification == -1:
-                malformed_counter += 1
-                continue
-            confusion_dict[classification] += 1
-            
-            character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
-
-            total_character_count += character_count
-            total_flagged_character_count += flagged_character_count
-    
-            en_t = time.perf_counter()
+        # print(batch)
         
-            time_elapsed = en_t - st_t
+        start_time = time.perf_counter()
+        response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False, sys_prompt=system_prompt_temp, sys_prompt_rag="")
+        end_time = time.perf_counter()
         
-            if total_character_count != 0:
-                flagged_characters_percentage=total_flagged_character_count/total_character_count*100
-            else:
-                flagged_characters_percentage = -1
+        time_taken = end_time - start_time
+        
+        print(f"Processed batch: {i}")
+        print(f"Time taken for model call: {time_taken:.2f} seconds\n")
+        
+        if response == -1:
+            malformed_counter += 1
+            continue
+        
+        #? why we do two time convert to bool?
+        # json_content = convert_to_bool(json_content)
+        
+        # if json_content == -1:
+        #     malformed_counter+=1
+        #     continue
+        save_model_output(batch, json_content, output_file)
+        
+        classification = check_model_output(batch, json_content)
+        if classification == -1:
+            malformed_counter += 1
+            continue
+        confusion_dict[classification] += 1
+        
+        character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
 
-            save_final_result_flow(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
-                            system_prompt_main='You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.',
-                            system_prompt_rag="",
-                            model_name=model_name,
-                            rag_embedding="nomic-embed-text")
+        total_character_count += character_count
+        total_flagged_character_count += flagged_character_count
+        i+=1
+
+    en_t = time.perf_counter()
+
+    time_elapsed = en_t - st_t
+
+    if total_character_count != 0:
+        flagged_characters_percentage=total_flagged_character_count/total_character_count*100
+    else:
+        flagged_characters_percentage = -1
+            
+        
+
+    save_final_result_flow(output_file, confusion_dict, time_elapsed, batch_counter, malformed_counter,flagged_characters_percentage, 
+                    system_prompt_main=system_prompt_temp,
+                    system_prompt_rag="",
+                    model_name=model_name,
+                    rag_embedding="nomic-embed-text")
 
 
 if __name__ == "__main__": 
     
-    process_flow()
+    process_russel()
     
 
         

@@ -168,6 +168,7 @@ def prepare_batches_russell(reference_time, lookback_minutes, batch_size, overla
                 temp = overlap_logs[host]
             actual_batch=len(temp)
             while i < len(lines): 
+                # print(f"{i}/{len(lines)}")
                 if(actual_batch<batch_size-1):
                     temp.append(lines[i])
                     actual_batch+=1
@@ -177,6 +178,7 @@ def prepare_batches_russell(reference_time, lookback_minutes, batch_size, overla
                     actual_batch=0
                     temp=[]
                     i-= overlap_size
+                i+=1
             if(temp):
                 batches.append(BatchRussell(temp, reference_time))  
     return batches
@@ -232,6 +234,10 @@ def extract_timestamp(file_path, line):
         if "error" in file_path and line.startswith("["):
             ts = re.search(r'\[([A-Za-z]{3} [A-Za-z]{3} \d{1,2} \d{2}:\d{2}:\d{2}\.\d+ \d{4})\]', line).group(1)
             return datetime.strptime(ts, "%a %b %d %H:%M:%S.%f %Y").strftime(FORMAT_PATTERN)
+        
+    if "openvpn" in file_path:
+        ts = line[0:19].strip()
+        return datetime.strptime(ts, "%d/%b/%Y:%H:%M:%S").strftime(FORMAT_PATTERN)
 
     if "logstash" in file_path:
         obj = json.loads(line)
@@ -314,15 +320,18 @@ if __name__ == "__main__":
     "gather/monitoring/logs/logstash/intranet-server/2022-01-22-system.cpu.log",
     "gather/monitoring/logs/logstash/intranet-server/2022-01-23-system.cpu.log",
     "gather/monitoring/logs/logstash/intranet-server/2022-01-24-system.cpu.log",
-    "gather/monitoring/logs/logstash/intranet-server/2022-01-25-system.cpu.log"
+    "gather/monitoring/logs/logstash/intranet-server/2022-01-25-system.cpu.log",
+    
+    "gather/vpn/logs/openvpn.log",
+    "gather/vpn/logs/suricata/fast.log",
     ]
     
     
-    #copy_rename_preprocess(paths)
+    copy_rename_preprocess(paths)
     dt1 = datetime(2022, 1, 21, 11, 12, 0, 0)
     dt2 = datetime(2022, 1, 23, 11, 20, 0, 0)
-    batches = prepare_batches_russell(dt2,10,10,True)
-    for batch in batches:
-        if batch.labels:
-            print(batch)
+    # batches = prepare_batches_russell(dt2,10,10,True)
+    # for batch in batches:
+    #     if batch.labels:
+    #         print(batch)
     

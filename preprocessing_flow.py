@@ -39,10 +39,10 @@ class BatchFlow:
                     labels.append(json_line["label"])
             except json.JSONDecodeError:
                 print(f"Error decoding JSON from line: {line}")
-        print(labels)
+        # print(labels)
         labels = list(set(labels))
-        labels.remove("BenignTraffic")
-        print(labels)
+        if "BenignTraffic" in labels:
+            labels.remove("BenignTraffic")
         return labels
             
 
@@ -63,25 +63,30 @@ def navigate_directory(paths,columns):
         df.to_csv(os.path.join(OUTPUT_DIR, label+".csv"), index=False)
     
     
-def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.9):
+def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.4):
     batches = []
-    flows_files = [f for f in os.listdir(OUTPUT_DIR) if f.endswith('.csv')]
+    flows_files = [f for f in os.listdir(OUTPUT_DIR) if (f.endswith('.csv') and f != "BenignTraffic.csv")]
     for i in range(num_batches):
         #randomize benign percentage
         benign_percentage = random.uniform(0, max_benign_percentage)  # Randomly choose a percentage between 10% and 90%
-        file = random.choice(flows_files)
-        if file.startswith("Benign"):
+        
+        benign = round(random.getrandbits(1))
+        if benign == 1:
+            file = "BenignTraffic.csv"
             df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
             df = df.sample(n=batch_size)
         else:
+            file = random.choice(flows_files)
             benign_df = pd.read_csv(BENIGN_FILE)
             benign_sample_size = int(batch_size * benign_percentage)
             attack_sample_size = batch_size - benign_sample_size
             
             benign_sample = benign_df.sample(n=benign_sample_size)
-            attack_sample = pd.read_csv(os.path.join(OUTPUT_DIR, file)).sample(n=attack_sample_size)
+            attack_df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
+            attack_start_idx = attack_df.sample(n=1).index[0]
+            attack_sample = attack_df.iloc[attack_start_idx:attack_start_idx + attack_sample_size]
             
-        # Concatenate benign and attack samples
+        # Concatenate benign and attack samples #todo disseminate benign in attack sample
             df = pd.concat([benign_sample, attack_sample], ignore_index=True)
             df = df.sample(frac=1).reset_index(drop=True)  # Shuffle the DataFrame
 
@@ -95,7 +100,7 @@ def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.9):
         batch_lines = batch_string.split('\n')
         batch_lines = batch_lines[:-1]
         batches.append(BatchFlow(batch_lines, temp_BatchFlow.labels))
-        return batches
+    return batches
 
 if __name__ == "__main__":
     cols = ["Src IP","Src Port","Dst IP","Dst Port","Protocol",
