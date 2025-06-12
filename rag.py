@@ -34,6 +34,7 @@ def crete_entry_list(df):
     
     for i in range(len(names)):
         rag_entries.append(f"Name: {names[i]} | Tactics: {tacticts[i]} | Description: {descriptions[i]}")
+        # rag_entries.append(f"Description: {descriptions[i]}")
     return rag_entries
 
 def create_documents(df):
@@ -46,6 +47,7 @@ def create_documents(df):
     
     for i in range(len(names)):
         docs.append(Document(page_content=f"Name: {names[i]} | Tactics: {tacticts[i]} | Description: {descriptions[i]}"))
+        # docs.append(Document(page_content=f"Description: {descriptions[i]}"))
     return docs
 
 def search_in_rag(query):
@@ -69,7 +71,18 @@ def search_in_rag(query):
     
     results = vector_store.similarity_search(query, k=1)
     
-    return results
+    if not results:
+        return "No matching entry found."
+    result = results[0].page_content  # Get the content of the first result
+    
+    
+    # enable if need detection append to result
+    # name = result.split("|")[0].split(":")[1].strip()  # Extract the name    
+    # df_filtered = df[df["name"] == name]
+    # if df_filtered.empty:
+    #     raise ValueError(f"No entry found for name: {name}")
+    # result += df_filtered.iloc[0]["detection"]
+    return result
     
 
 if __name__ == "__main__":
@@ -93,7 +106,6 @@ if __name__ == "__main__":
     query = "The logs contain unusual and potentially malicious DNS queries. Specifically, the query for '3x6-.789-.mcAm8hmbhJguxiCi//v/4lXOltMYQr3fUQ-.SaZVEXjM*JHr390b/wFmwu2JHW7yvzztRc-.kPGx3one3pUmVwJ5W4AVrj3SbN7P*GTdlA-.mPiumN5833S6Hu8WGzWmw7Ei00j9WKxjUb-.payroll_2018.xlsx.email-19.kennedy-mendoza.info' from 10.143.0.103 to 192.168.231.254 and the subsequent reply of 195.128.194.168 indicates an attempt to resolve a highly unusual and likely obfuscated domain name, which could be indicative of phishing or other malicious activities. Additionally, the query for 'mail.smith.russellmitchell.com' forwarded to 127.0.0.1 may indicate internal DNS manipulation or potential lateral movement within the network."
 
     # Perform similarity search to get top k documents (e.g., k=3)
-    results = vector_store.similarity_search(query, k=1)
+    result = search_in_rag(query=query)
 
-    for doc in results:
-        print(doc.page_content)
+    print(result)

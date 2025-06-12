@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import random
 import json
+import pickle
 SEARCH_ROOT = "./IOT_Flow"
 OUTPUT_DIR = "./collected_flows"
 BENIGN_FILE =f"{OUTPUT_DIR}/BenignTraffic.csv"
@@ -43,9 +44,9 @@ class BatchFlow:
         labels = list(set(labels))
         if "BenignTraffic" in labels:
             labels.remove("BenignTraffic")
+            # print("Removed 'BenignTraffic' from labels")
         return labels
             
-
 
 
 def read_csv(file, columns):
@@ -66,40 +67,57 @@ def navigate_directory(paths,columns):
 def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.4):
     batches = []
     flows_files = [f for f in os.listdir(OUTPUT_DIR) if (f.endswith('.csv') and f != "BenignTraffic.csv")]
-    for i in range(num_batches):
-        #randomize benign percentage
-        benign_percentage = random.uniform(0, max_benign_percentage)  # Randomly choose a percentage between 10% and 90%
-        
-        benign = round(random.getrandbits(1))
-        if benign == 1:
-            file = "BenignTraffic.csv"
-            df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
-            df = df.sample(n=batch_size)
-        else:
-            file = random.choice(flows_files)
-            benign_df = pd.read_csv(BENIGN_FILE)
+    
+    batches_per_task = num_batches // len(flows_files)
+    
+    benign_df = pd.read_csv(BENIGN_FILE)
+
+    for file in flows_files:
+        attack_df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
+
+        for i in range(batches_per_task):
+            benign_percentage = random.uniform(0, max_benign_percentage)
             benign_sample_size = int(batch_size * benign_percentage)
             attack_sample_size = batch_size - benign_sample_size
             
             benign_sample = benign_df.sample(n=benign_sample_size)
-            attack_df = pd.read_csv(os.path.join(OUTPUT_DIR, file))
             attack_start_idx = attack_df.sample(n=1).index[0]
             attack_sample = attack_df.iloc[attack_start_idx:attack_start_idx + attack_sample_size]
+            for record in benign_sample.to_dict(orient='records'):
+                random_row = random.randint(0,len(attack_sample)+1)
+                record = pd.DataFrame([record])
+                attack_sample = pd.concat([attack_sample.iloc[:random_row], record, attack_sample.iloc[random_row:]]).reset_index(drop=True)
             
-        # Concatenate benign and attack samples #todo disseminate benign in attack sample
-            df = pd.concat([benign_sample, attack_sample], ignore_index=True)
-            df = df.sample(frac=1).reset_index(drop=True)  # Shuffle the DataFrame
-
+            attack_sample.reset_index(drop=True)
+            
+            #todo commentare questo scempio
+            temp_batch_string = attack_sample.to_json(orient='records', lines=True)
+            temp_batch_lines = temp_batch_string.split('\n')
+            temp_batch_lines = temp_batch_lines[:-1]
+            temp_BatchFlow = BatchFlow(temp_batch_lines)
+            attack_sample.drop(columns=['label'], inplace=True, errors='ignore')  # Drop label column if it exists
+            batch_string = attack_sample.to_json(orient='records', lines=True)
+            batch_lines = batch_string.split('\n')
+            batch_lines = batch_lines[:-1]
+            batches.append(BatchFlow(batch_lines, temp_BatchFlow.labels))
+            
+    for i in range(batches_per_task):
+        benign_start_idx = benign_df.sample(n=1).index[0]
+        benign_sample = benign_df.iloc[benign_start_idx:benign_start_idx + batch_size]
+        benign_sample.reset_index(drop=True, inplace=True)
         
-        temp_batch_string = df.to_json(orient='records', lines=True)
+        temp_batch_string = benign_sample.to_json(orient='records', lines=True)
         temp_batch_lines = temp_batch_string.split('\n')
         temp_batch_lines = temp_batch_lines[:-1]
         temp_BatchFlow = BatchFlow(temp_batch_lines)
-        df.drop(columns=['label'], inplace=True, errors='ignore')  # Drop label column if it exists
-        batch_string = df.to_json(orient='records', lines=True)
+        benign_sample.drop(columns=['label'], inplace=True, errors='ignore')  # Drop label column if it exists
+        batch_string = benign_sample.to_json(orient='records', lines=True)
         batch_lines = batch_string.split('\n')
         batch_lines = batch_lines[:-1]
         batches.append(BatchFlow(batch_lines, temp_BatchFlow.labels))
+    
+    
+    pickle.dump(batches, open(os.path.join("pickled_batches_flow", "batches_flow.pkl"), "wb"))
     return batches
 
 if __name__ == "__main__":
@@ -139,10 +157,14 @@ if __name__ == "__main__":
             "SQL_injection/SqlInjection.pcap_Flow.csv",
             "XSS/XSS.pcap_Flow.csv"
             ]
+    
+    num_batches = 1000
+    max_batch_size = 20
+    max_benign_percentage = 0.4
     #navigate_directory(paths=paths,columns=cols)
-    batches = prepare_batches_flow(num_batches=10, batch_size=20, max_benign_percentage=0.7)
-    for i, batch in enumerate(batches):
-        print(batch)
+    batches = prepare_batches_flow(num_batches=num_batches, batch_size=max_batch_size, max_benign_percentage=max_benign_percentage)
+    # for i, batch in enumerate(batches):
+    #     print(batch)
 #due modi, o si mischia nei file di attacco delle linee di benign, oppure si prende una batch intera da un file cambiando file ogni batch
 #meccanismo per la scelta del file
 #se benign, allora prendi solo quello

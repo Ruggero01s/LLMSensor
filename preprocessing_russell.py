@@ -160,13 +160,13 @@ def prepare_batches_russell(reference_time, lookback_minutes, batch_size, overla
         if(temp): #for last batch
             batches.append(BatchRussell(temp, reference_time))    
     else:
-        i=0
         for host, lines in host_logs.items():
             if len(overlap_logs[host]) > overlap_size:
                 temp = overlap_logs[host][-overlap_size:]
             else:
                 temp = overlap_logs[host]
             actual_batch=len(temp)
+            i=0
             while i < len(lines): 
                 # print(f"{i}/{len(lines)}")
                 if(actual_batch<batch_size-1):
