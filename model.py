@@ -29,18 +29,21 @@ def model_call(model_name, message, rag, sys_prompt, sys_prompt_rag):
         json_object = json.loads(f"{json_str}")
         if rag:
             malicious = False
-            if isinstance(json_object.get("malicious"), bool):
-                malicious = json_object.get("malicious")
-            else: 
-                if json_object.get("malicious", "").lower() == "true":
-                    malicious = True
-            if malicious == True:
-                after_rag_response, after_rag_json_object=rag_query(llm=llm, message=message, query=json_object["query"], sys_prompt=sys_prompt_rag)
-                if after_rag_response == -1:
-                    return -1, ""
-                return after_rag_response, after_rag_json_object
-            else:
-                return response, json_object
+            try:
+                if isinstance(json_object.get("malicious"), bool):
+                    malicious = json_object.get("malicious")
+                else: 
+                    if json_object.get("malicious", "").lower() == "true":
+                        malicious = True
+                if malicious == True:
+                    after_rag_response, after_rag_json_object=rag_query(llm=llm, message=message, query=json_object["query"], sys_prompt=sys_prompt_rag)
+                    if after_rag_response == -1:
+                        return -1, ""
+                    return after_rag_response, after_rag_json_object
+                else:
+                    return response, json_object
+            except Exception as e:
+                return -1, ""
         return response, json_object
     except ValueError as e:
         print ("Is valid json? false")

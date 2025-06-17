@@ -81,8 +81,11 @@ def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.4):
     # List all CSV files in OUTPUT_DIR except the benign flows file
     flows_files = [f for f in os.listdir(OUTPUT_DIR) if (f.endswith('.csv') and f != "BenignTraffic.csv")]
     
+    batches_benign = round(num_batches / 2)
+    
     # Determine how many batches to create per file
-    batches_per_task = num_batches // len(flows_files)
+    batches_per_task = (num_batches - batches_benign) // len(flows_files)
+    
     
     # Read the benign flows CSV file into a DataFrame
     benign_df = pd.read_csv(BENIGN_FILE)
@@ -130,7 +133,7 @@ def prepare_batches_flow(num_batches, batch_size, max_benign_percentage=0.4):
             batches.append(BatchFlow(batch_lines, temp_BatchFlow.labels))
             
     # Additionally, build batches solely from benign flows, same process as above
-    for i in range(batches_per_task):
+    for i in range(batches_benign):
         benign_start_idx = benign_df.sample(n=1).index[0]
         benign_sample = benign_df.iloc[benign_start_idx:benign_start_idx + batch_size]
         benign_sample.reset_index(drop=True, inplace=True)
@@ -194,12 +197,12 @@ if __name__ == "__main__":
         "XSS/XSS.pcap_Flow.csv"
     ]
     
-    num_batches = 1000          # Total number of batches to prepare
+    num_batches = 500          # Total number of batches to prepare
     max_batch_size = 20         # Maximum number of records in each batch
     max_benign_percentage = 0.4  # Maximum allowed percentage of benign flows in a batch
     
     # preprocess the CSV files and add a label column.
-    navigate_directory(paths=paths, columns=cols)
+    # navigate_directory(paths=paths, columns=cols)
     
     # Prepare the batches and optionally print them for verification.
     batches = prepare_batches_flow(num_batches=num_batches, batch_size=max_batch_size, max_benign_percentage=max_benign_percentage)

@@ -193,17 +193,17 @@ def process_russel():
     
     sys_prompt_cybersec_exp_rag = 'You are a cybersecurity expert. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
 
-    for multihost in [True, False]:
-        for rag in [False, True]:
+    for multihost in [True]:
+        for rag in [True]:
             if rag:
-                prompt_main = sys_prompt_SOC_for_rag
-                prompt_rag = sys_prompt_SOC_rag
+                prompt_main = sys_prompt_threat_hunting_for_rag
+                prompt_rag = sys_prompt_threat_hunting_rag
             else:
-                prompt_main = sys_prompt_SOC
+                prompt_main = sys_prompt_threat_hunting
                 prompt_rag = ""
             
             print(f"Processing with multihost={multihost} and rag={rag}")
-            for model_name in ["qwen2.5-coder:14b"]:
+            for model_name in ["mistral-nemo:latest"]:
                 
                 i = 0
                 batch_counter = 0
@@ -257,12 +257,6 @@ def process_russel():
                                 i+=1
                                 continue
                             
-                            #? why we do two time convert to bool?
-                            # json_content = convert_to_bool(json_content)
-                            
-                            # if json_content == -1:
-                            #     malformed_counter+=1
-                            #     continue
                             save_model_output(batch, json_content, output_file)
                             
                             classification = check_model_output(batch, json_content)
@@ -350,11 +344,29 @@ def process_russel():
             #     break
 
 def process_flow():
-    system_prompt_temp = 'You are a network traffic analyst. You have received a batch of network flows which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious flows you must provide your reasoning. Output only the JSON.' 
+    sys_prompt_network_exp = 'You are a network traffic analyst. You have received a batch of aggregated packet information, called network flows, which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious flows you must provide your reasoning. Output only the JSON.' 
+    
+    sys_prompt_SOC = 'You are part of a SOC team triaging aggregated packet information, called network flows. Your job is to flag flows that merit deeper investigation. Read the following flows and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns indicating common attacks such as high number of connections with low packet rate, repeated connections from the same IP, long flows with very low data transfer, frequent resets or SYN-only flows, unbalanced down/up ratios, spikes in small packet sizes, unusual use of TCP flags etc. False negatives are worse than false positives in this context, but do not trigger on generic network noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    
+    sys_prompt_threat_hunting = 'Act as a threat hunter analyzing a batch of aggregated packet information, called network flows, for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON in this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
+    
+    sys_prompt_threat_hunting_for_rag = 'Act as a threat hunter analyzing a batch of aggregated packet information, called network flows, for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON in this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive.'
+    
+    sys_prompt_network_exp_for_rag = 'You are a network traffic analyst. You have received a batch of network flows which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Output only the JSON.'
+    
+    sys_prompt_SOC_for_rag = 'You are part of a SOC team triaging aggregated packet information, called network flows. Your job is to flag flows that merit deeper investigation. Read the following flows and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns indicating common attacks such as high number of connections with low packet rate, repeated connections from the same IP, long flows with very low data transfer, frequent resets or SYN-only flows, unbalanced down/up ratios, spikes in small packet sizes, unusual use of TCP flags etc. False negatives are worse than false positives in this context, but do not trigger on generic network noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     
-    num_batches = 10
-    max_batch_size = 20
+    # RAG prompts
+    
+    sys_prompt_SOC_rag = 'You are part of a SOC team triaging aggregated packet information, called network flows. Your job is to flag flows that merit deeper investigation. Read the following flows and a possible linked entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns indicating common attacks such as high number of connections with low packet rate, repeated connections from the same IP, long flows with very low data transfer, frequent resets or SYN-only flows, unbalanced down/up ratios, spikes in small packet sizes, unusual use of TCP flags etc. False negatives are worse than false positives in this context, but do not trigger oon generic network noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    
+    sys_prompt_threat_hunting_rag = 'Act as a threat hunter analyzing a batch of aggregated packet information, called network flows, for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the flows carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON in this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
+    
+    sys_prompt_network_exp_rag = 'You are a network traffic analyst. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
+    
+    num_batches = 500
+    max_batch_size = 10
     max_benign_percentage = 0.4
     
     model_name = "mistral-nemo:latest"
@@ -362,90 +374,145 @@ def process_flow():
     
     current_time = datetime.now()
     current_time = current_time.strftime("%Y%m%d_%H%M%S")
-    model_output_dir = f"./model_output_flow/"    
-    
-    os.makedirs(model_output_dir, exist_ok=True)
+    model_output_dir_base = f"./model_output_flow/model_output_{current_time}"  
+     
+    for rag in [False, True]:
+        for p in [1,2,3]:
+            if p == 1:
+                if rag:
+                    prompt_main = sys_prompt_SOC_for_rag
+                    prompt_rag = sys_prompt_SOC_rag
+                else:
+                    prompt_main = sys_prompt_SOC
+                    prompt_rag = ""
+                prompt_name = "sys_prompt_SOC"
+            elif p == 2:
+                if rag:
+                    prompt_main = sys_prompt_threat_hunting_for_rag
+                    prompt_rag = sys_prompt_threat_hunting_rag
+                else:
+                    prompt_main = sys_prompt_threat_hunting
+                    prompt_rag = ""
+                prompt_name = "sys_prompt_threat_hunting"
+            elif p == 3:
+                if rag:
+                    prompt_main = sys_prompt_network_exp_for_rag
+                    prompt_rag = sys_prompt_network_exp_rag
+                else:
+                    prompt_main = sys_prompt_network_exp
+                    prompt_rag = ""
+                prompt_name = "sys_prompt_network_exp"
+        
+            for model_name in ["mistral-nemo:latest"]:
 
-    i = 0
-    batch_counter = 0
-    malformed_counter = 0  
-    total_character_count = 0 
-    total_flagged_character_count=0
-    st_t = time.perf_counter()
-    confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
-    confusion_dict_by_label = {}
+                current_time = datetime.now()
+                current_time = current_time.strftime("%Y%m%d_%H%M%S")
+                model_output_dir = f"./model_output_flow/"    
+                
+                os.makedirs(model_output_dir, exist_ok=True)
 
-    output_file = os.path.join(model_output_dir, f"model_output_{current_time}.txt")
-    if not os.path.exists(os.path.join("pickled_batches_flow", "batches_flow.pkl")):
-        prepare_batches_flow(num_batches=num_batches, batch_size=max_batch_size, max_benign_percentage=max_benign_percentage)
-    batch_list = pickle.load(open(os.path.join("pickled_batches_flow", "batches_flow.pkl"), "rb"))
-    # print(len(batch_list))
-    batch_counter = len(batch_list)
-    for batch in batch_list:
-        # print(batch)
-        
-        start_time = time.perf_counter()
-        response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=False, sys_prompt=system_prompt_temp, sys_prompt_rag="")
-        end_time = time.perf_counter()
-        
-        time_taken = end_time - start_time
-        
-        print(f"Processed batch: {i}")
-        print(f"Time taken for model call: {time_taken:.2f} seconds\n")
-        
-        if response == -1:
-            malformed_counter += 1
-            continue
-        
-        #? why we do two time convert to bool?
-        # json_content = convert_to_bool(json_content)
-        
-        # if json_content == -1:
-        #     malformed_counter+=1
-        #     continue
-        save_model_output(batch, json_content, output_file)
-        
-        classification = check_model_output(batch, json_content)
-        if classification == -1:
-            malformed_counter += 1
-            continue
-        confusion_dict[classification] += 1
-        
-        for label in batch.labels:
-            if label not in confusion_dict_by_label:
-                confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
-            confusion_dict_by_label[label][classification] += 1
-        
-        character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
-
-        total_character_count += character_count
-        total_flagged_character_count += flagged_character_count
-        i+=1
-
-    en_t = time.perf_counter()
-
-    time_elapsed = en_t - st_t
-
-    if total_character_count != 0:
-        flagged_characters_percentage=total_flagged_character_count/total_character_count*100
-    else:
-        flagged_characters_percentage = -1
+                i = 0
+                batch_counter = 0
+                malformed_counter = 0
+                total_character_count = 0 
+                total_flagged_character_count=0  
             
-        
+                model_output_dir = os.path.join(model_output_dir_base, f"{model_name.split(':')[0]}_rag_{rag}_prompt_{prompt_name}")
+                
+                print(f"Processing model: {model_name}")
+                os.makedirs(model_output_dir, exist_ok=True)
+                                    
+                st_t = time.perf_counter()
+                confusion_dict_by_label = {}
+                confusion_dict = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
 
-    save_final_result(output_file=output_file, confusion_dict=confusion_dict, time_elapsed=time_elapsed, 
-                                batch_counter=batch_counter, malformed_counter=malformed_counter,
-                                flagged_characters_percentage=flagged_characters_percentage,
-                                confusion_dict_by_label=confusion_dict_by_label,
-                                system_prompt_main=prompt_main,
-                                system_prompt_rag=prompt_rag,
-                                model_name=model_name,
-                                rag_embedding="bge-m3:latest")
+                output_file = os.path.join(model_output_dir, f"model_output.txt")
+                if not os.path.exists(os.path.join("pickled_batches_flow", "batches_flow.pkl")):
+                    prepare_batches_flow(num_batches=num_batches, batch_size=max_batch_size, max_benign_percentage=max_benign_percentage)
+                batch_list = pickle.load(open(os.path.join("pickled_batches_flow", "batches_flow.pkl"), "rb"))
+                batch_counter += len(batch_list)
+                for batch in batch_list:
+                    # print(batch)
+                    
+                    start_time = time.perf_counter()
+                    response, json_content = model_call(model_name,batch.get_batch_as_string(), rag=rag,sys_prompt=prompt_main, sys_prompt_rag=prompt_rag)
+                    end_time = time.perf_counter()
+                    
+                    time_taken = end_time - start_time
+                    
+                    print(f"Processed batch: {i}")
+                    print(f"Time taken for model call: {time_taken:.2f} seconds\n")
+                    
+                    if response == -1:
+                        malformed_counter += 1
+                        i+=1
+                        continue
+                    
+                    save_model_output(batch, json_content, output_file)
+                    
+                    classification = check_model_output(batch, json_content)
+                    if classification == -1:
+                        malformed_counter += 1
+                        i+=1
+                        continue
+                    confusion_dict[classification] += 1
+                    
+                    for label in batch.labels:
+                        if label not in confusion_dict_by_label:
+                            confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+                        confusion_dict_by_label[label][classification] += 1
+                        
+                    
+                    character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
+
+                    total_character_count += character_count
+                    total_flagged_character_count += flagged_character_count
+                    
+                
+                    i+=1
+                    # if i > 2:
+                    #     break
+
+
+            
+                en_t = time.perf_counter()
+                
+                time_elapsed = en_t - st_t
+                
+                
+                if total_character_count != 0:
+                    flagged_characters_percentage=total_flagged_character_count/total_character_count*100
+                else:
+                    flagged_characters_percentage = -1
+
+                save_final_result(output_file=output_file, confusion_dict=confusion_dict, time_elapsed=time_elapsed, 
+                                            batch_counter=batch_counter, malformed_counter=malformed_counter,
+                                            flagged_characters_percentage=flagged_characters_percentage,
+                                            confusion_dict_by_label=confusion_dict_by_label,
+                                            system_prompt_main=prompt_main,
+                                            system_prompt_rag=prompt_rag,
+                                            model_name=model_name,
+                                            multihost="",
+                                            rag_embedding="bge-m3:latest")
+                accuracy, precision, recall, f1 = calculate_metrics(confusion_dict=confusion_dict)
+                        
+                batch_counter = 0
+                malformed_counter = 0
+                total_character_count = 0
+                total_flagged_character_count=0
+
+                
+                os.rename(model_output_dir, f"{model_output_dir}_f1_{f1:.2f}")
+            #     if i>2:
+            #         break
+        
+            # if i>2:
+            #     break
 
 
 if __name__ == "__main__": 
     
-    process_russel()
+    process_flow()
     
 
         

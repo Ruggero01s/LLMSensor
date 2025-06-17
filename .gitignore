@@ -72,6 +72,7 @@ Thumbs.db
 /collected_logs
 /collected_flows
 /model_output
+/model_output_flow
 /embeddings_cache
 /enterprise-attack-v17.1.csv
 /IOT_Flow

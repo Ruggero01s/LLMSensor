@@ -7,9 +7,11 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
  
 def read_csv(csv_file, columns):
-    citation_pattern = r"\(Citation:\s*[^)]+\)"
-    url_pattern = r"\(https://[^)]+\)"
+    citation_pattern = r"\(Citation:\s*[^)]+\)" # regex pattern for matching citations
+    url_pattern = r"\(https://[^)]+\)" # regex pattern for matching urls
     df=pd.read_csv(csv_file, usecols=columns, encoding="cp1252")
+    
+    # strips citations and urls from descriptions to remove unnecessary links
     for i, description in enumerate(df["description"]):
         new_description = description
         # Remove citations
