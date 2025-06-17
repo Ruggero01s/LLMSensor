@@ -1,0 +1,652 @@
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	155784 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:52:48  |  Jan 23 04....8.230.122
+	155785 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:52:48  |  Jan 23 04....8.194.168
+	149058 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....143.0.103
+	149059 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....8.231.254
+	149060 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....8.194.168
+	155786 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....168.230.4
+	155787 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....8.230.122
+	155788 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:02  |  Jan 23 04....8.194.168
+	149061 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....143.0.103
+	149062 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....8.231.254
+	149063 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....8.194.168
+	155789 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....168.230.4
+	155790 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....8.230.122
+	155791 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:19  |  Jan 23 04....8.194.168
+	149064 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....143.0.103
+	149065 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....8.231.254
+	149066 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....8.194.168
+	155792 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....168.230.4
+	155793 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....8.230.122
+	155794 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:53:35  |  Jan 23 04....8.194.168
+{'malicious': 'True', 'reason': 'The logs show repeated access to the same email (3x6-.532-.hbWIgdqNSVwRk20Iw9uFu/GP99m4QAvT7c-) from different IP addresses, which may indicate a remote email collection tactic. The IPs (192.168.230.4 and 192.168.231.254) seem to be part of the internal network, but the suspicious activity is still noteworthy.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149122 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:58:51  |  Jan 23 04....8.194.168
+	155846 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:58:51  |  Jan 23 04....168.230.4
+	155847 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:58:51  |  Jan 23 04....8.230.122
+	155848 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:58:51  |  Jan 23 04....8.194.168
+	149123 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....143.0.103
+	149124 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....8.231.254
+	149125 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....8.194.168
+	155849 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....168.230.4
+	155850 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....8.230.122
+	155851 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:12  |  Jan 23 04....8.194.168
+	149126 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....143.0.103
+	149127 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....8.231.254
+	149128 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....8.194.168
+	155852 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....168.230.4
+	155853 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....8.230.122
+	155854 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:35  |  Jan 23 04....8.194.168
+	149129 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:48  |  Jan 23 04....143.0.103
+	149130 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:48  |  Jan 23 04....8.231.254
+	149131 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:48  |  Jan 23 04....8.194.168
+	155855 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 04:59:48  |  Jan 23 04....168.230.4
+{'malicious': 'True', 'reason': "The logs indicate that an adversary is searching DNS data for information about the victim organization, which is a known tactic in the MITRE ATT&CK database. The logs show repeated queries to nameservers for the target organization's subdomains and mail servers, indicating reconnaissance activity."}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: []
+	149143 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....7.212.196
+	149144 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....7.212.207
+	155861 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....168.230.4
+	155862 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....o 8.8.8.8
+	155863 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....168.230.4
+	155864 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....o 8.8.8.8
+	155865 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....7.212.196
+	155866 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:29  |  Jan 23 05....7.212.207
+	149145 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149146 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....8.231.254
+	149147 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149148 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149149 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149150 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149151 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149152 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149153 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149154 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149155 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149156 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+{'malicious': 'True', 'reason': 'Unusual repeated DNS queries to e6410.d.akamaiedge.net from 10.143.1.78, indicating potential reconnaissance activity.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log']
+	Labels: []
+	149191 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149192 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149193 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....8.231.254
+	149194 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149195 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....8.231.254
+	149196 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149197 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....8.231.254
+	149198 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149199 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....8.231.254
+	149200 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....s <CNAME>
+	149201 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....s <CNAME>
+	149202 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....s <CNAME>
+	149203 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149204 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149205 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149206 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149207 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149208 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05.....143.1.78
+	149209 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149210 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....s <CNAME>
+{'malicious': 'True', 'reason': 'Possible DNS query anomaly indicating potential reconnaissance activity.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: []
+	155894 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....s <CNAME>
+	155895 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	155896 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....216.46.24
+	155897 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....9.137.173
+	155898 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....111.26.27
+	155899 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:30  |  Jan 23 05....DATA-IPv6
+	149236 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149237 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149238 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149239 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149240 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149241 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149242 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149243 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149244 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149245 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149246 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149247 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149248 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149249 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+{'malicious': 'True', 'reason': 'Unusual DNS query pattern: repeated queries to a single nameserver with NODATA-IPv6 responses, indicating potential reconnaissance activity.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log']
+	Labels: []
+	149248 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149249 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149250 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149251 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149252 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149253 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149254 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149255 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149256 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149257 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149258 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149259 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149260 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149261 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149262 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149263 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149264 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149265 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+	149266 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05.....143.1.78
+	149267 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:31  |  Jan 23 05....DATA-IPv6
+{'malicious': 'True', 'reason': 'The domain e6410.d.akamaiedge.net is queried multiple times with the same IP address, indicating a possible dynamic DNS resolution technique known as Fast Flux DNS, which can be used for command and control channel obfuscation.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log']
+	Labels: []
+	149284 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149285 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....DATA-IPv6
+	149286 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05.....143.1.78
+	149287 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....DATA-IPv6
+	149288 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149289 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149290 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....34.246.33
+	149291 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05.....143.1.78
+	149292 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.231.254
+	149293 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05.....143.1.78
+	149294 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.231.254
+	149295 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05.....143.1.78
+	149296 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.231.254
+	149297 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05.....143.1.78
+	149298 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.231.254
+	149299 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149300 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149301 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....04.163.21
+	149302 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	149303 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+{'malicious': 'True', 'reason': 'Domain fronting technique observed: multiple DNS queries with different domain names (e.g., gfp.veta.naver.com and use1-gfp.veta.naver.com) but same IP address (110.234.246.33), suggesting potential use of a CDN for obfuscating traffic destination.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-dns_logs_dnsmasq.log']
+	Labels: []
+	155910 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....0.195.208
+	155911 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....30.193.11
+	155912 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....0.200.103
+	155913 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155914 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155915 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....DATA-IPv6
+	155916 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155917 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155918 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....34.246.33
+	155919 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....168.230.4
+	155920 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....o 8.8.8.8
+	155921 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....168.230.4
+	155922 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....o 8.8.8.8
+	155923 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....168.230.4
+	155924 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....o 8.8.8.8
+	155925 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....168.230.4
+	155926 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....o 8.8.8.8
+	155927 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155928 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155929 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....04.163.21
+{'malicious': True, 'reason': "The logs show a repeated query and response for 'gfp.veta.naver.com' with multiple IP addresses, which could indicate an Adversary-in-the-Middle (AiTM) attack to intercept user credentials or session cookies."}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	155928 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155929 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....04.163.21
+	155930 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155931 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....s <CNAME>
+	155932 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....DATA-IPv6
+	155933 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....168.230.4
+	155934 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.230.122
+	155935 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:32  |  Jan 23 05....8.194.168
+	149310 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....s <CNAME>
+	149311 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....89.168.50
+	149312 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....89.168.79
+	149313 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....s <CNAME>
+	149314 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....DATA-IPv6
+	149315 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05.....143.1.78
+	149316 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....DATA-IPv6
+	149317 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05.....143.1.78
+	149318 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....DATA-IPv6
+	149319 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05.....143.1.78
+	149320 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05....DATA-IPv6
+	149321 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:33  |  Jan 23 05.....143.1.78
+{'malicious': 'True', 'reason': "The adversary is searching DNS data for information about the victim's organization, including records that outline addressing for target subdomains, mail servers, and other hosts. This activity matches the MITRE ATT&CK entry: Search Open Technical Databases: DNS/Passive DNS (T1583)."}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149369 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05.....143.1.78
+	149370 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05....DATA-IPv6
+	149371 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05.....143.1.78
+	149372 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05....DATA-IPv6
+	149373 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05.....143.1.78
+	149374 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05....DATA-IPv6
+	149375 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05.....143.1.78
+	149376 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:48  |  Jan 23 05....DATA-IPv6
+	149377 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....143.0.103
+	149378 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....8.231.254
+	149379 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....8.194.168
+	155941 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....168.230.4
+	155942 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....8.230.122
+	155943 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:00:52  |  Jan 23 05....8.194.168
+	149380 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05.....143.1.78
+	149381 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05....8.231.254
+	149382 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05.....143.1.78
+	149383 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05....DATA-IPv6
+	155944 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05....168.230.4
+	155945 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:02  |  Jan 23 05....o 8.8.8.8
+{'malicious': 'True', 'reason': 'Repeated DNS queries to external servers (e.g., 8.8.8.8) may indicate a denial of service attack or attempted exfiltration of data.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149400 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149401 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149402 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149403 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149404 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149405 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149406 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149407 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149408 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149409 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149410 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	149411 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05.....143.1.78
+	149412 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....DATA-IPv6
+	155946 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:03  |  Jan 23 05....7.212.207
+	149413 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....143.0.103
+	149414 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.231.254
+	149415 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.194.168
+	155947 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....168.230.4
+	155948 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.230.122
+	155949 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.194.168
+{'malicious': 'True', 'reason': 'Multiple DNS queries with dynamically generated domains suggest potential use of Domain Generation Algorithms (DGAs) by an adversary, which is a tactic in the MITRE ATT&CK framework for Command and Control.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	155948 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.230.122
+	155949 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:10  |  Jan 23 05....8.194.168
+	149416 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:17  |  Jan 23 05.....143.1.78
+	149417 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:17  |  Jan 23 05....DATA-IPv6
+	149418 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149419 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149420 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149421 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149422 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149423 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149424 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149425 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149426 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149427 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149428 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149429 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149430 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149431 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149432 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149433 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+{'malicious': 'True', 'reason': 'Repeated DNS queries to a single domain with NODATA-IPv6 responses in a short period of time, indicating potential Dynamic Resolution: Fast Flux DNS activity.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-firewall_logs_syslog.3', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149450 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149451 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149452 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149453 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149454 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149455 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149456 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149457 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149458 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149459 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149460 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149461 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	149462 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05.....143.1.78
+	149463 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:18  |  Jan 23 05....DATA-IPv6
+	305 | LOG NAME= inet-firewall_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:01:26  |  Jan 23 05.... dev ens7
+	306 | LOG NAME= inet-firewall_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:01:26  |  Jan 23 05.......>.>...
+	149464 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:33  |  Jan 23 05....143.0.103
+	149465 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:33  |  Jan 23 05....8.231.254
+	149466 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:33  |  Jan 23 05....8.194.168
+	155950 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:01:33  |  Jan 23 05....168.230.4
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149475 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....9.130.106
+	149476 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....8.231.254
+	149477 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....s <CNAME>
+	149478 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....7.204.111
+	149479 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....s <CNAME>
+	149480 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....7:b090::1
+	155959 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....168.230.4
+	155960 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....o 8.8.8.8
+	155961 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....168.230.4
+	155962 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....o 8.8.8.8
+	155963 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....s <CNAME>
+	155964 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....7.204.111
+	155965 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....s <CNAME>
+	155966 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:19  |  Jan 23 05....7:b090::1
+	149481 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....143.0.103
+	149482 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....8.231.254
+	149483 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....8.194.168
+	155967 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....168.230.4
+	155968 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....8.230.122
+	155969 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:02:24  |  Jan 23 05....8.194.168
+{'malicious': True, 'reason': 'Exfiltration of data over DNS protocol, potentially using encoding/compression algorithms to obfuscate the data, which is a tactic in line with Exfiltration Over Alternative Protocol as described in the MITRE ATT&CK database.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	155983 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:42  |  Jan 23 05....8.230.122
+	155984 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:42  |  Jan 23 05....8.194.168
+	149499 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....143.0.103
+	149500 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....8.231.254
+	149501 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....8.194.168
+	155985 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....168.230.4
+	155986 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....8.230.122
+	155987 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:03:57  |  Jan 23 05....8.194.168
+	155988 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:13  |  Jan 23 05....68.231.56
+	155989 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:13  |  Jan 23 05....o 8.8.8.8
+	155990 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:13  |  Jan 23 05....49192:333
+	149502 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....143.0.103
+	149503 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....8.231.254
+	149504 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....8.194.168
+	155991 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....168.230.4
+	155992 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....8.230.122
+	155993 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:15  |  Jan 23 05....8.194.168
+	149505 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:31  |  Jan 23 05....143.0.103
+	149506 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:31  |  Jan 23 05....8.231.254
+	149507 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:04:31  |  Jan 23 05....8.194.168
+{'malicious': 'True', 'reason': 'Multiple DNS queries from a single IP address (10.143.0.103) with identical domains, suggesting potential DNS tunneling or command and control communication.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149533 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:12  |  Jan 23 05....8.231.254
+	149534 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:12  |  Jan 23 05....8.194.168
+	156021 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:12  |  Jan 23 05....168.230.4
+	156022 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:12  |  Jan 23 05....8.230.122
+	156023 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:12  |  Jan 23 05....8.194.168
+	149535 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....143.0.103
+	149536 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....8.231.254
+	149537 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....8.194.168
+	156024 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....168.230.4
+	156025 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....8.230.122
+	156026 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:32  |  Jan 23 05....8.194.168
+	149538 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....143.0.103
+	149539 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....8.231.254
+	149540 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....8.194.168
+	156027 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....168.230.4
+	156028 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....8.230.122
+	156029 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:07:45  |  Jan 23 05....8.194.168
+	149541 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....143.0.103
+	149542 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.231.254
+	149543 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.194.168
+{'malicious': True, 'reason': 'Suspicious DNS activity with multiple rapid IP address changes, indicating possible use of Fast Flux DNS technique to hide a command and control channel.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149542 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.231.254
+	149543 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.194.168
+	156030 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....168.230.4
+	156031 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.230.122
+	156032 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:05  |  Jan 23 05....8.194.168
+	149544 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....143.0.103
+	149545 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....8.231.254
+	149546 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....8.194.168
+	156033 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....168.230.4
+	156034 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....8.230.122
+	156035 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:20  |  Jan 23 05....8.194.168
+	149547 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....143.0.103
+	149548 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....8.231.254
+	149549 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....8.194.168
+	156036 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....168.230.4
+	156037 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....8.230.122
+	156038 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:43  |  Jan 23 05....8.194.168
+	149550 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:58  |  Jan 23 05....143.0.103
+	149551 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:58  |  Jan 23 05....8.231.254
+	149552 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:08:58  |  Jan 23 05....8.194.168
+{'malicious': 'True', 'reason': 'Repeated attempts to resolve an email address (payroll_2014.xlsx.email-19.kennedy-mendoza.info) from different IP addresses, which may be indicative of Email Bombing behavior according to MITRE ATT&CK.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149553 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....143.0.103
+	149554 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....8.231.254
+	149555 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....8.194.168
+	156042 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....168.230.4
+	156043 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....8.230.122
+	156044 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:15  |  Jan 23 05....8.194.168
+	149556 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....143.0.103
+	149557 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....8.231.254
+	149558 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....8.194.168
+	156045 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....168.230.4
+	156046 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....8.230.122
+	156047 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:32  |  Jan 23 05....8.194.168
+	149559 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....143.0.103
+	149560 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....8.231.254
+	149561 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....8.194.168
+	156048 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....168.230.4
+	156049 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....8.230.122
+	156050 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:09:53  |  Jan 23 05....8.194.168
+	149562 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:09  |  Jan 23 05....143.0.103
+	149563 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:09  |  Jan 23 05....8.231.254
+{'malicious': True, 'reason': 'Multiple attempts to access management services over non-standard ports and unusual login attempts from IP address 10.143.0.103, which may indicate password guessing or brute force attacks.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: []
+	156103 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:31  |  Jan 23 05....s <CNAME>
+	156104 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:31  |  Jan 23 05....7.212.196
+	149618 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149619 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149620 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149621 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149622 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....30.193.11
+	149623 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....30.200.97
+	149624 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....0.195.208
+	149625 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....0.200.103
+	149626 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149627 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149628 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149629 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149630 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149631 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149632 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149633 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149634 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149635 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log']
+	Labels: []
+	149634 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149635 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149636 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149637 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149638 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149639 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149640 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149641 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149642 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149643 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....8.231.254
+	149644 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149645 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149646 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....34.246.33
+	149647 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149648 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149649 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....04.163.21
+	149650 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149651 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149652 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149653 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+{'malicious': 'True', 'reason': 'The logs show multiple domain fronting activities with different domains (gfp.veta.naver.com, use1-gfp.veta.naver.com.akadns.net, lcs.naver.com, de-lcs.naver.com.akadns.net) being resolved to the same CDN IP addresses. This behavior is consistent with a potential Domain Fronting attack.'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: []
+	149652 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149653 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149654 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149655 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149656 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....89.168.79
+	149657 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....89.168.50
+	149658 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	149659 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149660 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149661 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149662 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149663 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149664 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05.....143.1.78
+	149665 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	156105 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....168.230.4
+	156106 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....o 8.8.8.8
+	156107 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....168.230.4
+	156108 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....o 8.8.8.8
+	156109 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....30.193.11
+	156110 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....30.200.97
+{'malicious': 'True', 'reason': 'Unusual DNS traffic pattern and potential DNS server compromise'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: []
+	156127 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....168.230.4
+	156128 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....o 8.8.8.8
+	156129 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156130 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156131 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....34.246.33
+	156132 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156133 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156134 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....04.163.21
+	156135 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156136 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156137 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	156138 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156139 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....89.168.79
+	156140 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....89.168.50
+	156141 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....s <CNAME>
+	156142 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:33  |  Jan 23 05....DATA-IPv6
+	149666 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:34  |  Jan 23 05.....143.1.78
+	149667 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:34  |  Jan 23 05....DATA-IPv6
+	149668 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:34  |  Jan 23 05.....143.1.78
+	149669 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:10:34  |  Jan 23 05....DATA-IPv6
+{'malicious': True, 'reason': 'Multiple DNS queries with short TTLs and rapid IP address changes, indicating possible Fast Flux DNS activity'}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['inet-firewall_logs_dnsmasq.log', 'inet-dns_logs_dnsmasq.log']
+	Labels: ['attacker', 'dnsteal-received', 'dnsteal']
+	149701 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:20  |  Jan 23 05....8.194.168
+	156164 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:20  |  Jan 23 05....168.230.4
+	156165 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:20  |  Jan 23 05....8.230.122
+	156166 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:20  |  Jan 23 05....8.194.168
+	149702 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....143.0.103
+	149703 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....8.231.254
+	149704 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....8.194.168
+	156167 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....168.230.4
+	156168 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....8.230.122
+	156169 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:33  |  Jan 23 05....8.194.168
+	149705 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....143.0.103
+	149706 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....8.231.254
+	149707 | LOG NAME= inet-firewall_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....8.194.168
+	156170 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....168.230.4
+	156171 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....8.230.122
+	156172 | LOG NAME= inet-dns_logs_dnsmasq.log  |  TIMESTAMP= 2022-01-23 05:12:56  |  Jan 23 05....8.194.168
+{'malicious': 'True', 'reason': 'Domain registration hijacking attempt observed'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+12	1	9	1
+
+------------------------------
+Confusion Matrix for label attacker:
+TP	TN	FP	FN
+12	0	0	1
+
+------------------------------
+Confusion Matrix for label dnsteal-received:
+TP	TN	FP	FN
+12	0	0	1
+
+------------------------------
+Confusion Matrix for label dnsteal:
+TP	TN	FP	FN
+12	0	0	1
+
+------------------------------
+Metrics General:
+	Accuracy: 56.52173913043478%
+	Precision: 57.14285714285714%
+	Recall: 92.3076923076923%
+	F1: 70.58823529411765%
+	Flagged characters percentage: 93.90875312176402%
+
+------------------------------
+Metrics for label attacker:
+	Accuracy: 92.3076923076923%
+	Precision: 100.0%
+	Recall: 92.3076923076923%
+	F1: 96.00000000000001%
+
+Metrics for label dnsteal-received:
+	Accuracy: 92.3076923076923%
+	Precision: 100.0%
+	Recall: 92.3076923076923%
+	F1: 96.00000000000001%
+
+Metrics for label dnsteal:
+	Accuracy: 92.3076923076923%
+	Precision: 100.0%
+	Recall: 92.3076923076923%
+	F1: 96.00000000000001%
+
+------------------------------
+Time elapsed: 1480.562039675191
+Batch processed: 59
+Malformed outputs: 36
+------------------------------
+Model: llama3.1:8b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

@@ -1,0 +1,7 @@
+Model: mistral-nemo:latest
+Multihost: True
+RAG: False
+Average F1: 60.23
+Average Accuracy: 53.69
+Average Precision: 48.89
+Average Recall: 85.01

@@ -1,0 +1,7 @@
+Model: llama3.1:8b
+Multihost: False
+RAG: True
+Average F1: 39.03
+Average Accuracy: 33.17
+Average Precision: 26.21
+Average Recall: 84.37
