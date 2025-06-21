@@ -187,7 +187,7 @@ def process_russel():
 
     #RAG
     
-    sys_prompt_SOC_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    sys_prompt_SOC_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     sys_prompt_threat_hunting_rag = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
@@ -196,14 +196,14 @@ def process_russel():
     for multihost in [True]:
         for rag in [True]:
             if rag:
-                prompt_main = sys_prompt_threat_hunting_for_rag
-                prompt_rag = sys_prompt_threat_hunting_rag
+                prompt_main = sys_prompt_SOC_for_rag
+                prompt_rag = sys_prompt_SOC_rag
             else:
-                prompt_main = sys_prompt_threat_hunting
+                prompt_main = sys_prompt_SOC
                 prompt_rag = ""
             
             print(f"Processing with multihost={multihost} and rag={rag}")
-            for model_name in ["mistral-nemo:latest"]:
+            for model_name in ["gemma3:12b"]:
                 
                 i = 0
                 batch_counter = 0
@@ -369,15 +369,15 @@ def process_flow():
     max_batch_size = 10
     max_benign_percentage = 0.4
     
-    model_name = "mistral-nemo:latest"
-    # model_name = "gemma3:12b"
+    #model_name = "mistral-nemo:latest"
+    #model_name = "gemma3:12b"
     
     current_time = datetime.now()
     current_time = current_time.strftime("%Y%m%d_%H%M%S")
     model_output_dir_base = f"./model_output_flow/model_output_{current_time}"  
      
     for rag in [False, True]:
-        for p in [1,2,3]:
+        for p in [2]:
             if p == 1:
                 if rag:
                     prompt_main = sys_prompt_SOC_for_rag
@@ -403,7 +403,7 @@ def process_flow():
                     prompt_rag = ""
                 prompt_name = "sys_prompt_network_exp"
         
-            for model_name in ["mistral-nemo:latest"]:
+            for model_name in ["llama3.1:8b"]:
 
                 current_time = datetime.now()
                 current_time = current_time.strftime("%Y%m%d_%H%M%S")
@@ -457,12 +457,16 @@ def process_flow():
                         continue
                     confusion_dict[classification] += 1
                     
-                    for label in batch.labels:
-                        if label not in confusion_dict_by_label:
-                            confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
-                        confusion_dict_by_label[label][classification] += 1
-                        
-                    
+                    if batch.labels:
+                        for label in batch.labels:
+                            if label not in confusion_dict_by_label:
+                                confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+                            confusion_dict_by_label[label][classification] += 1
+                    else:
+                        if "benign" not in confusion_dict_by_label:
+                            confusion_dict_by_label["benign"] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+                        confusion_dict_by_label["benign"][classification] += 1
+
                     character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
 
                     total_character_count += character_count
@@ -512,8 +516,7 @@ def process_flow():
 
 if __name__ == "__main__": 
     
-    process_flow()
-    
+    process_russel()
 
         
     
