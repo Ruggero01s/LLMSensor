@@ -2,7 +2,7 @@ import json
 import re
 from langchain.chat_models import init_chat_model
 from rag import search_in_rag
-
+import ollama
 
 
 def model_call(model_name, message, rag, sys_prompt, sys_prompt_rag):
@@ -16,8 +16,11 @@ def model_call(model_name, message, rag, sys_prompt, sys_prompt_rag):
         # ),
         ("human", f"{message}\n{sys_prompt}"),
     ]
-    response = llm.invoke(messages)
-    #print(ai_msg.content)
+    try:
+        response = llm.invoke(messages)
+    except ollama._types.ResponseError as e:
+        llm = init_chat_model(model_name, model_provider="ollama", )
+        response = llm.invoke(messages)
     try:
         sanitized_response = response.content.replace("\n","")
         match = re.search(r'\{.*?\}', f"{sanitized_response}")

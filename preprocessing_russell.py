@@ -309,6 +309,12 @@ def extract_timestamp(file_path, line):
     raise ValueError(f"Unsupported format: {file_path}")
 
         
+
+def minute_range(start_datetime: datetime, end_datetime: datetime, step_minutes: int):
+    total_minutes = int((end_datetime - start_datetime).total_seconds() / 60)
+    for n in range(0, total_minutes + 1, step_minutes):
+        yield start_datetime + timedelta(minutes=n)
+        
 if __name__ == "__main__":
     # List of paths (relative to SEARCH_ROOT) to the gathered log files.
     paths = [
@@ -374,12 +380,23 @@ if __name__ == "__main__":
     ]
     
     # Process and prepare logs by copying, renaming and fixing format.
-    copy_rename_preprocess(paths)
+    # copy_rename_preprocess(paths)
     
-    #test and debug code
-    # dt1 = datetime(2022, 1, 21, 11, 12, 0, 0)
-    # dt2 = datetime(2022, 1, 23, 11, 20, 0, 0)
-    # batches = prepare_batches_russell(dt2, 10, 10, overlap_minutes=10, overlap_percentage=0.2, multihost=True)
-    # for batch in batches:
-    #     if batch.labels:
-    #         print(batch)
+    # test and debug code
+    dt1 = datetime(2022, 1, 21, 0, 0, 0, 0)
+    dt2 = datetime(2022, 1, 25, 0, 0, 0, 0)
+    step_minutes=10
+    overlap_minutes=1
+    max_batch_size=20
+    overlap_percentage = 0.1
+    count = 0
+    for current_time in minute_range(dt1, dt2, step_minutes):
+        batch_list=prepare_batches_russell(reference_time=current_time,
+                                lookback_minutes=step_minutes,
+                                batch_size=max_batch_size,
+                                overlap_minutes=overlap_minutes,
+                                overlap_percentage=overlap_percentage,
+                                multihost=True)    
+        count += len(batch_list)
+        print(f"Current time: {current_time}, Batches created until now: {count}")
+    print(f"Total batches created: {count}")

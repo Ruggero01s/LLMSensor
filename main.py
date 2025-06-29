@@ -148,6 +148,9 @@ def process_russel():
                (datetime(2022, 1, 24, 1, 5, 0, 0),datetime(2022, 1, 24, 1, 20, 0, 0)), #Internal share audit
                (datetime(2022, 1, 23, 5, 3, 0, 0),datetime(2022, 1, 23, 5, 18, 0, 0)), #syslog
                ]
+    # windows = [
+    #         (datetime(2022, 1, 21, 0, 0, 0, 0),datetime(2022, 1, 25, 0, 0, 0, 0)), # all dataset
+    #         ]
     # start_time = datetime(2022, 1, 21, 0, 0, 0, 0)
     # end_time = datetime(2022, 1, 25, 0, 0, 0, 0)
     # start_time = datetime(2022, 1, 23, 11, 00, 0, 0)
@@ -163,23 +166,21 @@ def process_russel():
     # model_name = "llama3.1:8b"
     # model_name = "qwen2.5-coder:14b"
     
-    multihost = True #todo da controllare singlehost perchè sono molte meno batch?
+    multihost = True 
     
     current_time = datetime.now()
     current_time = current_time.strftime("%Y%m%d_%H%M%S")
     model_output_dir_base = f"./model_output/model_output_{current_time}"    
     
 
-
-
     
-    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true"}.  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+    sys_prompt_SOC = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return this formatted JSON: {"malicious": "True|False"}.  Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     sys_prompt_threat_hunting = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
     sys_prompt_cybersec_exp = 'You are a cybersecurity expert. You have received a batch of logs which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
     
-    sys_prompt_SOC_for_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.'
+    sys_prompt_SOC_for_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"query": "Only if malicious is true", "malicious": "True|False"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.'
     
     sys_prompt_threat_hunting_for_rag = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
@@ -188,22 +189,26 @@ def process_russel():
     #RAG
     
     sys_prompt_SOC_rag = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
+
+    sys_prompt_SOC_rag_mit = 'You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat, if any", "malicious": "True|False", }. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
     sys_prompt_threat_hunting_rag = 'Act as a threat hunter analyzing a batch of logs for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON like this: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
     sys_prompt_cybersec_exp_rag = 'You are a cybersecurity expert. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
 
     for multihost in [True]:
-        for rag in [True]:
+        for rag in [False]:
             if rag:
                 prompt_main = sys_prompt_SOC_for_rag
-                prompt_rag = sys_prompt_SOC_rag
+                prompt_rag = sys_prompt_SOC_rag_mit
             else:
                 prompt_main = sys_prompt_SOC
                 prompt_rag = ""
             
             print(f"Processing with multihost={multihost} and rag={rag}")
-            for model_name in ["gemma3:12b"]:
+            for model_name in ["mistral-nemo:latest"]:
+                
+                time_taken_st = time.perf_counter() 
                 
                 i = 0
                 batch_counter = 0
@@ -215,10 +220,16 @@ def process_russel():
                 running_accuracy_sum = 0
                 running_precision_sum = 0
                 running_recall_sum = 0
+                running_flagged_characters_percentage = 0
+                
                 count_f1 = 0
                 count_accuracy = 0
                 count_precision = 0
                 count_recall = 0
+                count_flagged_characters_percentage = 0
+                
+                
+                total_batch_counter = 0
             
                 model_output_dir = os.path.join(model_output_dir_base, f"{model_name.split(':')[0]}_multihost_{multihost}_rag_{rag}")
                 
@@ -266,10 +277,15 @@ def process_russel():
                                 continue
                             confusion_dict[classification] += 1
                             
-                            for label in batch.labels:
-                                if label not in confusion_dict_by_label:
-                                    confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
-                                confusion_dict_by_label[label][classification] += 1
+                            if batch.labels:
+                                for label in batch.labels:
+                                    if label not in confusion_dict_by_label:
+                                        confusion_dict_by_label[label] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+                                    confusion_dict_by_label[label][classification] += 1
+                            else:
+                                if "benign" not in confusion_dict_by_label:
+                                    confusion_dict_by_label["benign"] = {"TP": 0, "TN": 0, "FP": 0, "FN": 0}
+                                confusion_dict_by_label["benign"][classification] += 1
                                 
                             
                             character_count, flagged_character_count = calculate_character_counter(classification=classification, batch=batch)
@@ -318,7 +334,13 @@ def process_russel():
                     if recall>=0:
                         running_recall_sum += recall
                         count_recall += 1
+                    if flagged_characters_percentage >= 0:
+                        running_flagged_characters_percentage += flagged_characters_percentage
+                        count_flagged_characters_percentage += 1
                         
+                    
+                    total_batch_counter = total_batch_counter + batch_counter
+                    
                     batch_counter = 0
                     malformed_counter = 0
                     total_character_count = 0
@@ -326,15 +348,26 @@ def process_russel():
                     # if i>10:
                     #     break
                 
+                time_taken_end = time.perf_counter()
+                time_elapsed_total = time_taken_end - time_taken_st
+                
+                avg_f1 = running_f1_sum/count_f1 if count_f1 > 0 else -1
+                avg_accuracy = running_accuracy_sum/count_accuracy if count_accuracy > 0 else -1
+                avg_precision = running_precision_sum/count_precision if count_precision > 0 else -1
+                avg_recall = running_recall_sum/count_recall if count_recall > 0 else -1
+                avg_flagged_characters_percentage = running_flagged_characters_percentage/count_flagged_characters_percentage if count_flagged_characters_percentage > 0 else -1
                 
                 with open(os.path.join(model_output_dir, "merged_metrics.txt"), "w") as f:
                     f.write(f"Model: {model_name}\n")
                     f.write(f"Multihost: {multihost}\n")
                     f.write(f"RAG: {rag}\n")
-                    f.write(f"Average F1: {running_f1_sum/count_f1:.2f}\n")
-                    f.write(f"Average Accuracy: {running_accuracy_sum/count_accuracy:.2f}\n")
-                    f.write(f"Average Precision: {running_precision_sum/count_precision:.2f}\n")
-                    f.write(f"Average Recall: {running_recall_sum/count_recall:.2f}\n")
+                    f.write(f"Average F1: {avg_f1:.2f}\n")
+                    f.write(f"Average Accuracy: {avg_accuracy:.2f}\n")
+                    f.write(f"Average Precision: {avg_precision:.2f}\n")
+                    f.write(f"Average Recall: {avg_recall:.2f}\n")
+                    f.write(f"Average Flagged Characters Percentage: {avg_flagged_characters_percentage:.2f}\n")
+                    f.write(f"Total time elapsed: {time_elapsed_total:.2f} seconds\n")
+                    f.write(f"Total batches processed: {total_batch_counter}\n")
                     f.flush()
                     f.close()
                     
@@ -352,7 +385,7 @@ def process_flow():
     
     sys_prompt_threat_hunting_for_rag = 'Act as a threat hunter analyzing a batch of aggregated packet information, called network flows, for early indicators of compromise. Review the logs carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON in this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive.'
     
-    sys_prompt_network_exp_for_rag = 'You are a network traffic analyst. You have received a batch of network flows which you will analyze with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Output only the JSON.'
+    sys_prompt_network_exp_for_rag = 'You are a network traffic analyst. You have received a batch of network flows which you will analyze with great scrutiny and decide whether they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Output only the JSON.'
     
     sys_prompt_SOC_for_rag = 'You are part of a SOC team triaging aggregated packet information, called network flows. Your job is to flag flows that merit deeper investigation. Read the following flows and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns indicating common attacks such as high number of connections with low packet rate, repeated connections from the same IP, long flows with very low data transfer, frequent resets or SYN-only flows, unbalanced down/up ratios, spikes in small packet sizes, unusual use of TCP flags etc. False negatives are worse than false positives in this context, but do not trigger on generic network noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.'
     
@@ -363,10 +396,10 @@ def process_flow():
     
     sys_prompt_threat_hunting_rag = 'Act as a threat hunter analyzing a batch of aggregated packet information, called network flows, for early indicators of compromise. You have also received a possible match from MITRE ATT&CK database. Review the flows carefully and decide whether there is any evidence suggesting malicious activity or behavior requiring further investigation. Return only a JSON in this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. Aim to catch as many real threats as possible (low false negatives), but avoid flagging benign activity unless there are clear signs of compromise. Keep your detection conservative but sensitive. If flagged as malicious, explain briefly why.'
     
-    sys_prompt_network_exp_rag = 'You are a network traffic analyst. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide wheater they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
+    sys_prompt_network_exp_rag = 'You are a network traffic analyst. You have received a batch of logs and a possible classification by MITRE ATT&CK database. You will analyze the logs with great scrutiny and decide whether they contain possible malicious activity and must be further investigated or not. Your output must be in JSON, following this format: {"malicious": "True|False", "reason": "Only if malicious is true"}. If the batch contains suspicious logs you must provide your reasoning. Output only the JSON.'
     
-    num_batches = 500
-    max_batch_size = 10
+    num_batches = 1000
+    max_batch_size = 20
     max_benign_percentage = 0.4
     
     #model_name = "mistral-nemo:latest"
