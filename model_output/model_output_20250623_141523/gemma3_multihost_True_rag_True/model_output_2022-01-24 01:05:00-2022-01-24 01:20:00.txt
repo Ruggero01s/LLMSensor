@@ -1,0 +1,55 @@
+Batch:
+	Timestamp: 2022-01-24 01:15:00
+	Sources: ['intranet-server_logs_audit_audit.log', 'intranet-server_logs_auth.log', 'intranet-server_logs_syslog.2']
+	Labels: []
+	1777 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=USER....=success'
+	1778 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=CRED....=success'
+	1779 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=LOGI....298 res=1
+	1780 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=USER....=success'
+	1781 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=CRED....=success'
+	1782 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  type=USER....=success'
+	181 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 01:09:01  |  Jan 24 01....lean; fi)
+	121 | LOG NAME= intranet-server_logs_auth.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  Jan 24 01....y (uid=0)
+	122 | LOG NAME= intranet-server_logs_auth.log  |  TIMESTAMP= 2022-01-24 01:09:01  |  Jan 24 01....user root
+	182 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 01:09:12  |  Jan 24 01.... files...
+	1783 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:13  |  type=SERV....=success'
+	1784 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 01:09:13  |  type=SERV....=success'
+	183 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 01:09:13  |  Jan 24 01....on files.
+{'malicious': 'False'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+0	1	0	0
+
+------------------------------
+Confusion Matrix for label benign:
+TP	TN	FP	FN
+0	2	0	0
+
+------------------------------
+Metrics General:
+	Accuracy: 100.0%
+	Precision: -100%
+	Recall: -100%
+	F1: -100%
+	Flagged characters percentage: 0.0%
+
+------------------------------
+Metrics for label benign:
+	Accuracy: 100.0%
+	Precision: -100%
+	Recall: -100%
+	F1: -100%
+
+------------------------------
+Time elapsed: 4.02900574170053
+Batch processed: 1
+Malformed outputs: 0
+------------------------------
+Model: gemma3:12b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

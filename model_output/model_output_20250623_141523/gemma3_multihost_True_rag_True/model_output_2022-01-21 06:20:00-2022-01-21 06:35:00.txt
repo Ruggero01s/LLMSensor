@@ -1,0 +1,584 @@
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['internal-share_logs_syslog.4', 'inet-firewall_logs_suricata_fast.log', 'intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4']
+	Labels: []
+	44 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4  |  TIMESTAMP= 2022-01-21 06:09:28  |  10.143.3.....fox/86.0"
+	45 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4  |  TIMESTAMP= 2022-01-21 06:09:28  |  10.143.3.....fox/86.0"
+	46 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4  |  TIMESTAMP= 2022-01-21 06:10:33  |  10.143.3.....fox/86.0"
+	47 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4  |  TIMESTAMP= 2022-01-21 06:10:34  |  10.143.3.....fox/86.0"
+	48 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.4  |  TIMESTAMP= 2022-01-21 06:11:23  |  10.143.3.....fox/86.0"
+	8 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:12:22  |  Jan 21 06....vities...
+	785 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:05  |  01/21/202....0.4:37820
+	786 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:05  |  01/21/202....0.4:37820
+	787 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:05  |  01/21/202....4.137:443
+	788 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:05  |  01/21/202....4.137:443
+	789 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....0.4:55462
+	790 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....0.4:55462
+	791 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....51.31:443
+	792 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....51.31:443
+	793 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....0.4:60716
+	794 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....0.4:60716
+	795 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....31.67:443
+	796 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:06  |  01/21/202....31.67:443
+	797 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:55480
+	798 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:55480
+{'malicious': 'True', 'reason': 'The logs indicate repeated TLS handshake failures across multiple connections and destinations. This pattern suggests a potential attempt to exploit vulnerabilities, scan for open ports, or establish covert communication channels. The repeated failures over different source/destination port combinations is highly suspicious.', 'mitration': '1. Investigate the source IPs involved in these connections and determine if they are legitimate or malicious. 2. Analyze network traffic patterns associated with these connections to identify any unusual behavior. 3. Review firewall rules and intrusion detection system (IDS) configurations to ensure they are effectively blocking malicious traffic. 4. Implement stricter TLS validation and monitoring to detect and prevent future TLS handshake failures. 5. Consider blocking or rate-limiting traffic from suspicious IPs and ports. 6. Correlate these logs with other security events to identify any related activity.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	797 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:55480
+	798 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:55480
+	799 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:46126
+	800 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:46126
+	801 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....51.31:443
+	802 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....51.31:443
+	803 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....96.64:443
+	804 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....96.64:443
+	805 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:51706
+	806 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:51706
+	807 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....41.99:443
+	808 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....41.99:443
+	809 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:37638
+	810 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:37638
+	811 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....3.182:443
+	812 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....3.182:443
+	813 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:49930
+	814 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....0.4:49930
+	815 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....2.174:443
+	816 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....2.174:443
+{'malicious': 'True', 'reason': "The logs indicate multiple instances of 'SURICATA TLS invalid handshake message' and 'SURICATA TLS invalid record/traffic' across different source IPs. This pattern suggests an attempt to impersonate or manipulate SSL/TLS traffic, potentially masking malicious command and control activity. The MITRE ATT&CK entry aligns with this behavior, indicating a possible attempt at Protocol or Service Impersonation to evade detection and blend in with legitimate network traffic.", 'mitigation': '1. Investigate the identified source IPs (52.215.102.174, 52.215.102.174, 34.252.133.174) and destinations (192.168.230.4) to determine their purpose and potential compromise.  2. Examine network traffic patterns associated with these IPs to identify any unusual or suspicious communication. 3. Review SSL/TLS certificate configurations and policies to ensure proper validation and prevent impersonation. 4. Implement or enhance intrusion detection and prevention systems (IDS/IPS) to detect and block attempts to manipulate SSL/TLS traffic. 5. Consider using SSL/TLS inspection tools to analyze encrypted traffic and identify malicious activity. 6. Regularly update Suricata signatures to ensure detection of the latest threats. 7. Segment network to limit the lateral movement of any potential compromised machines.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	815 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....2.174:443
+	816 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:07  |  01/21/202....2.174:443
+	817 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....0.4:48802
+	818 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....0.4:48802
+	819 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....9.248:443
+	820 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....9.248:443
+	821 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....0.4:44288
+	822 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....0.4:44288
+	823 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....40.78:443
+	824 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:08  |  01/21/202....40.78:443
+	825 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:42168
+	826 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:42168
+	827 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....1.170:443
+	828 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....1.170:443
+	829 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:46186
+	830 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:46186
+	831 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....96.64:443
+	832 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....96.64:443
+	833 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:39256
+	834 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:39256
+{'malicious': 'True', 'reason': 'The logs indicate repeated TLS handshake failures and invalid record traffic. This strongly suggests an attempted exploitation of a public-facing application. The repeated failures across multiple source IPs (3.226.102.122, 3.226.102.122, 3.226.102.122) points to a scanning or exploitation attempt rather than a misconfiguration or isolated issue. The MITRE ATT&CK description of Exploiting Public-Facing Applications aligns directly with the observed activity.', 'mitigation': '1. Immediately investigate the public-facing applications identified in the logs (likely web servers or related services).  \n2. Scan these applications for known vulnerabilities, paying close attention to the OWASP Top 10 and CWE Top 25. \n3. Review application configuration and ensure TLS versions are appropriately configured (disable older, vulnerable versions). \n4. Implement or strengthen web application firewalls (WAFs) to block malicious traffic patterns. \n5. Implement rate limiting to prevent automated scanning/exploitation attempts. \n6. Analyze network traffic to determine the scope of the attempted exploitation and identify any compromised systems. \n7. Consider implementing intrusion detection and prevention systems (IDS/IPS) with rules specifically targeting TLS handshake failures and malformed TLS records. \n8. Review and update patching schedules to ensure applications and underlying infrastructure are up-to-date.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-firewall_logs_syslog.4', 'inet-firewall_logs_auth.log.1', 'inet-firewall_logs_suricata_fast.log', 'intranet-server_logs_auth.log.1']
+	Labels: []
+	833 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:39256
+	834 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....0.4:39256
+	835 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....2.122:443
+	836 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:09  |  01/21/202....2.122:443
+	837 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:40764
+	838 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:40764
+	839 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....5.122:443
+	840 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....5.122:443
+	841 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:52290
+	842 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:52290
+	843 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....2.147:443
+	844 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....2.147:443
+	845 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:54766
+	846 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....0.4:54766
+	847 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....4.202:443
+	848 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:15:10  |  01/21/202....4.202:443
+	12 | LOG NAME= inet-firewall_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+	13 | LOG NAME= inet-firewall_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....user root
+	18 | LOG NAME= inet-firewall_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	38 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+{'malicious': 'True', 'reason': 'The logs indicate multiple instances of TLS handshake failures (invalid record/traffic, invalid handshake message) within a short timeframe. This pattern strongly suggests an attempt at protocol impersonation, potentially to disguise command and control traffic. The repetitive nature of these errors, combined with the MITRE ATT&CK description of adversaries leveraging TLS impersonation for evasion, warrants immediate investigation.', 'mitigation': '1. Investigate the source IPs involved in the TLS handshake failures. 2. Analyze network traffic associated with these IPs to identify the nature of the attempted impersonation. 3. Review firewall rules and intrusion detection/prevention systems to block or alert on similar traffic patterns. 4. Examine SSL/TLS certificate configurations to ensure they are secure and prevent unauthorized impersonation. 5. Enhance logging and monitoring of TLS handshake failures for improved detection capabilities.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-dns_logs_auth.log.1', 'inet-firewall_logs_syslog.4', 'intranet-server_logs_syslog.4', 'internal-share_logs_audit_audit.log', 'internal-share_logs_auth.log.1', 'intranet-server_logs_audit_audit.log', 'internal-share_logs_syslog.4', 'intranet-server_logs_auth.log.1']
+	Labels: []
+	18 | LOG NAME= inet-firewall_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	38 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+	39 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....user root
+	142 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	143 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=CRED....=success'
+	144 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=LOGI....=84 res=1
+	145 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	146 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=CRED....=success'
+	147 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	52 | LOG NAME= intranet-server_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	38 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	39 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=CRED....=success'
+	40 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=LOGI....=42 res=1
+	41 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	42 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=CRED....=success'
+	43 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:01  |  type=USER....=success'
+	12 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+	13 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....user root
+	9 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	243 | LOG NAME= inet-dns_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-dns_logs_syslog.4', 'inet-dns_logs_auth.log.1', 'inet-firewall_logs_suricata_fast.log', 'internal-share_logs_audit_audit.log', 'internal-share_logs_syslog.4']
+	Labels: []
+	9 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	243 | LOG NAME= inet-dns_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....y (uid=0)
+	244 | LOG NAME= inet-dns_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....user root
+	1156 | LOG NAME= inet-dns_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:01  |  Jan 21 06....n.hourly)
+	10 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:15  |  Jan 21 06....iguration
+	11 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:17:15  |  Jan 21 06....guration]
+	44 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=AVC ....r_parser"
+	45 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=SYSC....ey=(null)
+	46 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=PROC....C69656E74
+	47 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=AVC ....r_parser"
+	48 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=SYSC....ey=(null)
+	49 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=PROC....C69656E74
+	50 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=AVC ....r_parser"
+	51 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=SYSC....ey=(null)
+	52 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=PROC....C69656E74
+	53 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=AVC ....r_parser"
+	54 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=SYSC....ey=(null)
+	55 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:17:32  |  type=PROC....C69656E74
+	849 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....0.4:55596
+	850 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....0.4:55596
+{'malicious': 'True', 'reason': 'The Suricata logs indicate a TLS invalid handshake and invalid record/traffic. This strongly suggests an attempt to impersonate or interfere with TLS traffic, which aligns with the MITRE ATT&CK entry for Data Obfuscation: Protocol or Service Impersonation.  An adversary might be attempting to blend command and control traffic with legitimate TLS traffic to evade detection.', 'mitigation': '1. Investigate the source IP address (3.210.251.31) and destination IP address (192.168.230.4) to identify the systems involved. \n2. Analyze network traffic patterns associated with these IPs to identify any unusual or malicious activity. \n3. Review Suricata rules and signatures to ensure they are up-to-date and effectively detecting TLS-related attacks. \n4. Implement or strengthen TLS inspection and decryption capabilities to examine the contents of TLS traffic. \n5. Monitor for similar TLS handshake failures and invalid record/traffic events from other source IPs. \n6. Consider blocking or restricting access from the suspicious source IP address (3.210.251.31).'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	849 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....0.4:55596
+	850 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....0.4:55596
+	851 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....51.31:443
+	852 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:10  |  01/21/202....51.31:443
+	853 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:42  |  01/21/202....0.4:45204
+	854 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:42  |  01/21/202....0.4:45204
+	855 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:42  |  01/21/202....9.229:443
+	856 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:42  |  01/21/202....9.229:443
+	857 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:43  |  01/21/202....0.4:35876
+	858 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:43  |  01/21/202....0.4:35876
+	859 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:43  |  01/21/202....12.53:443
+	860 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:43  |  01/21/202....12.53:443
+	861 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:44  |  01/21/202....0.4:32820
+	862 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:44  |  01/21/202....0.4:32820
+	863 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:44  |  01/21/202....7.165:443
+	864 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:44  |  01/21/202....7.165:443
+	865 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....0.4:55882
+	866 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....0.4:55882
+	867 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....202.0:443
+	868 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....202.0:443
+{'malicious': 'True', 'reason': 'The logs indicate repeated TLS handshake failures and invalid record traffic, suggesting a potential attempt to impersonate legitimate protocols (HTTPS). The repeated failures across different source IPs (20.40.202.0, 20.40.202.0, 20.40.202.0) and destinations (192.168.230.4) strengthens the suspicion of malicious activity attempting to blend in with legitimate HTTPS traffic.  This aligns with the MITRE ATT&CK description of Protocol or Service Impersonation, particularly SSL/TLS handshake impersonation, which could be used to conceal command and control traffic.', 'mitigation': '1. **Investigate Source IPs:** Block or rate limit traffic originating from the identified source IPs (20.40.202.0). 2. **Deep Packet Inspection:** Implement or enhance DPI to analyze TLS traffic and identify anomalies in handshake patterns or data content. 3. **TLS Certificate Validation:** Ensure strict certificate validation is enforced. 4. **Network Segmentation:** Isolate sensitive systems and network segments to limit the impact of a potential breach. 5. **Monitor Endpoint Activity:** Implement endpoint detection and response (EDR) tools to monitor endpoint activity and identify any unusual processes or network connections. 6. **Review Firewall Rules:** Ensure firewall rules are configured to restrict inbound and outbound traffic based on the principle of least privilege. 7. **Regularly Update Security Software:** Keep all security software up to date with the latest signatures and patches.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	867 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....202.0:443
+	868 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:45  |  01/21/202....202.0:443
+	869 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40992
+	870 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40992
+	871 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....90.43:443
+	872 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....90.43:443
+	873 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40990
+	874 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40990
+	875 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....90.43:443
+	876 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....90.43:443
+	877 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:52792
+	878 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:52792
+	879 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....2.227:443
+	880 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....2.227:443
+	881 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40926
+	882 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....0.4:40926
+	883 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....5.122:443
+	884 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:47  |  01/21/202....5.122:443
+	885 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....0.4:36932
+	886 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....0.4:36932
+{'malicious': 'True', 'reason': 'The logs indicate repeated TLS handshake failures across multiple IP addresses and ports, suggesting a potential scanning or probing activity attempting to exploit vulnerabilities or bypass security measures. The MITRE ATT&CK entry regarding Non-Standard Port usage further supports the possibility of malicious activity attempting to evade detection.', 'mitigation': '1. Investigate the source IPs involved in these TLS handshake failures to determine their origin and intent. 2. Review firewall rules to ensure appropriate blocking of suspicious IP addresses and ports. 3. Implement intrusion detection system (IDS) signatures to detect and alert on similar TLS handshake failure patterns. 4. Monitor for any subsequent network connections from the identified source IPs. 5. Examine systems that initiated the connections for potential compromise. 6. Implement network segmentation to limit the impact of a potential breach.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:20:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log', 'inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	885 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....0.4:36932
+	886 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....0.4:36932
+	887 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....1.165:443
+	888 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:18:50  |  01/21/202....1.165:443
+	56 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:19:57  |  type=SERV....=success'
+	57 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:19:57  |  type=SERV....=success'
+	12 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....eloading.
+	13 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....he Day...
+	14 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....vities...
+	15 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....ration...
+	16 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....n: apport
+	17 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06.... ...done.
+	18 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:57  |  Jan 21 06....neration.
+	19 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:19:58  |  Jan 21 06....eloading.
+{'malicious': 'True', 'reason': 'The logs indicate SURICATA detected TLS invalid handshake messages and invalid record/traffic. This could be an attempt to impersonate SSL/TLS traffic, potentially for Command and Control activities. The adversary may be attempting to blend malicious traffic with legitimate encrypted communications to evade detection.', 'mitration': '1. Investigate the source IP address (104.16.81.165) and destination IP address (192.168.230.4) involved in the TLS handshake failures. \n2. Analyze network traffic to determine the nature of the traffic causing the TLS failures.\n3. Review firewall rules to ensure that TLS traffic is properly inspected and filtered.\n4. Enhance Suricata rules to better detect and block malicious TLS traffic.\n5. Monitor for similar TLS handshake failures from other sources.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log', 'inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	24 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:00  |  Jan 21 06....neration.
+	25 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:00  |  Jan 21 06....eloading.
+	59 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:20:31  |  type=SERV....=success'
+	60 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:20:31  |  type=SERV....=success'
+	26 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:31  |  Jan 21 06....he memory
+	27 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:31  |  Jan 21 06....s around.
+	28 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:31  |  Jan 21 06....imisation
+	29 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:31  |  Jan 21 06.... the Day.
+	30 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:36  |  Jan 21 06....eloading.
+	61 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:20:38  |  type=SERV....=success'
+	62 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:20:38  |  type=SERV....=success'
+	63 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:20:38  |  type=SERV....=success'
+	31 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06....loading.]
+	32 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06....anager...
+	33 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06.... Manager.
+	34 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06....anager...
+	35 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06.... Manager.
+	36 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:20:38  |  Jan 21 06....eloading.
+	889 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....0.4:38398
+	890 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....0.4:38398
+{'malicious': 'True', 'reason': 'The logs indicate a TLS invalid handshake and record/traffic error originating from IP address 52.16.52.14 connecting to 192.168.230.4 on port 38398. This is unusual network activity, especially the use of a non-standard port (38398) for TLS communication. This could be an attempt to evade detection or establish covert command and control channels. The MITRE ATT&CK entry regarding Non-Standard Port aligns with this behavior.', 'mitigation': '1. Isolate the host (192.168.230.4) from the network to prevent further communication.\n2. Investigate the purpose of port 38398 on the host. Identify any processes or services using it.\n3. Analyze network traffic to and from the external IP address (52.16.52.14) to identify its origin and purpose.\n4. Review firewall rules to ensure non-standard ports are appropriately filtered.\n5. Implement network monitoring to detect similar anomalous port usage in the future.\n6. Consider blocking the external IP address (52.16.52.14) at the firewall.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log', 'inet-firewall_logs_suricata_fast.log', 'internal-share_logs_auth.log.1']
+	Labels: []
+	889 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....0.4:38398
+	890 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....0.4:38398
+	891 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....52.14:443
+	892 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:00  |  01/21/202....52.14:443
+	893 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  01/21/202....0.4:55966
+	894 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  01/21/202....0.4:55966
+	895 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  01/21/202....202.0:443
+	896 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  01/21/202....202.0:443
+	64 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  type=SERV....=success'
+	65 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  type=SERV....=success'
+	66 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:01  |  type=SERV....=success'
+	14 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....minating.
+	15 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06.... port 22.
+	16 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06.... port 22.
+	37 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....loading.]
+	38 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....server...
+	39 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....l server.
+	40 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....server...
+	41 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....l server.
+	897 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:02  |  01/21/202....0.4:49264
+{'malicious': 'True', 'reason': 'The logs indicate SSH server activity, including signals (15, termination), restarts, and potential server listening issues. Coupled with the MITRE ATT&CK entry on SSH Hijacking, these events suggest a potential attempt at lateral movement or unauthorized access. The repeated restarts and signals could indicate a denial-of-service attempt or an adversary attempting to maintain persistence.', 'mitigation': '1. Implement multi-factor authentication (MFA) for SSH access. 2. Regularly review and audit SSH access logs. 3. Restrict SSH access to authorized users and IP addresses. 4. Harden SSH server configuration (e.g., disable password authentication, use strong key exchange algorithms). 5. Monitor for unusual SSH activity, such as failed login attempts and connections from unexpected locations. 6. Consider using an SSH audit trail to track user activity and identify potential security incidents. 7. Implement intrusion detection/prevention systems (IDS/IPS) to detect and block malicious SSH activity.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log', 'inet-firewall_logs_suricata_fast.log']
+	Labels: []
+	41 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:01  |  Jan 21 06....l server.
+	897 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:02  |  01/21/202....0.4:49264
+	898 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:02  |  01/21/202....0.4:49264
+	899 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:02  |  01/21/202....58.76:443
+	900 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:21:02  |  01/21/202....58.76:443
+	42 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:02  |  Jan 21 06....eloading.
+	43 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:13  |  Jan 21 06....iguration
+	44 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:13  |  Jan 21 06....guration]
+	67 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	68 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	69 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	70 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	71 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	72 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	73 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	74 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	75 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	76 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	77 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	78 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+{'malicious': 'False', 'reason': None, 'mitigation': None}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log']
+	Labels: []
+	77 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	78 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	79 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	80 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	81 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	82 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:14  |  type=SERV....=success'
+	45 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....xecuting.
+	46 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....elimiting
+	47 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....y=hybrid)
+	48 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....tion kvm.
+	49 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....e x86-64.
+	50 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ervice...
+	51 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....nnection.
+	52 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Service.
+	53 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ervice...
+	54 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ed IPv6LL
+	55 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....completed
+	56 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Service.
+	57 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....lution...
+	58 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....y enabled
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4']
+	Labels: []
+	57 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....lution...
+	58 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....y enabled
+	59 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....solution.
+	60 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....lution...
+	61 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ged by us
+	62 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ntu.com).
+	63 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....nnection.
+	64 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....0.143.0.1
+	65 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....onfined")
+	66 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ervice...
+	67 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....onfigured
+	68 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ostname1'
+	69 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Service.
+	70 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....43-0-103'
+	71 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ntu.com).
+	72 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Anchors:
+	73 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....2f24e8fb5
+	74 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....7c7f8ec8d
+	75 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....vate test
+	76 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....l-share'.
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log']
+	Labels: []
+	75 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....vate test
+	76 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....l-share'.
+	77 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....solution.
+	78 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....zation...
+	79 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....nization.
+	80 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....zation...
+	81 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....nization.
+	82 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Storage.
+	83 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....torage...
+	84 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ervice...
+	85 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....systemd).
+	86 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Service.
+	87 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ervice...
+	88 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Service.
+	89 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....ntu.com).
+	90 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06....torage...
+	91 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:14  |  Jan 21 06.... Storage.
+	92 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:15  |  Jan 21 06.....143.0.1.
+	93 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:17  |  Jan 21 06....iguration
+	83 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:32  |  type=SERV....=success'
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log']
+	Labels: []
+	93 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:17  |  Jan 21 06....iguration
+	83 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:32  |  type=SERV....=success'
+	84 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:32  |  type=SERV....=success'
+	94 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:32  |  Jan 21 06....eloading.
+	95 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:32  |  Jan 21 06....r GRUB...
+	96 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:32  |  Jan 21 06....for GRUB.
+	97 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:33  |  Jan 21 06....eloading.
+	98 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:33  |  Jan 21 06....loading.]
+	99 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:33  |  Jan 21 06....r GRUB...
+	85 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:34  |  type=SERV....=success'
+	100 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:34  |  Jan 21 06.... for GRUB
+	101 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:34  |  Jan 21 06.... ...done.
+	102 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:34  |  Jan 21 06....for GRUB.
+	103 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....g enabled
+	104 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda14
+	105 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06.... skipping
+	106 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....ted-tests
+	107 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	108 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06.... platform
+	109 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log']
+	Labels: []
+	108 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06.... platform
+	109 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	110 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....partition
+	111 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	112 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....: exiting
+	113 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	114 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....: exiting
+	115 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	116 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....partition
+	117 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	118 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....partition
+	119 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	120 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	121 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	122 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	123 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....: exiting
+	124 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	125 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:36  |  Jan 21 06....dev/vda15
+	126 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:40  |  Jan 21 06....eloading.
+	86 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:44  |  type=SERV....=success'
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['internal-share_logs_syslog.4', 'internal-share_logs_audit_audit.log']
+	Labels: []
+	126 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:21:40  |  Jan 21 06....eloading.
+	86 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:44  |  type=SERV....=success'
+	87 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:21:44  |  type=SERV....=success'
+	127 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda14
+	128 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06.... skipping
+	129 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....ted-tests
+	130 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	131 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06.... platform
+	132 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	133 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....partition
+	134 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	135 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....: exiting
+	136 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	137 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....: exiting
+	138 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	139 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....partition
+	140 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	141 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....partition
+	142 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	143 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['inet-firewall_logs_suricata_fast.log', 'internal-share_logs_audit_audit.log', 'internal-share_logs_syslog.4', 'intranet-server_logs_audit_audit.log', 'intranet-server_logs_auth.log.1']
+	Labels: []
+	142 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	143 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	144 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	145 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	146 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....: exiting
+	147 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	148 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:22:47  |  Jan 21 06....dev/vda15
+	88 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:23:00  |  type=SERV....=success'
+	89 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:23:00  |  type=SERV....=success'
+	149 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:23:00  |  Jan 21 06....tivities.
+	90 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:23:01  |  type=SERV....=success'
+	91 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:23:01  |  type=SERV....=success'
+	150 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:23:01  |  Jan 21 06....tivities.
+	901 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:23:24  |  01/21/202....0.4:55986
+	902 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:23:24  |  01/21/202....0.4:55986
+	903 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:23:24  |  01/21/202....202.0:443
+	904 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:23:24  |  01/21/202....202.0:443
+	40 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:01  |  Jan 21 06....y (uid=0)
+	148 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=USER....=success'
+	149 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=CRED....=success'
+{'malicious': 'True', 'reason': "The logs indicate multiple 'SURICATA TLS invalid handshake message' and 'SURICATA TLS invalid record/traffic' events. These errors strongly suggest an attempt to either disrupt SSL/TLS communication or to impersonate SSL/TLS traffic for malicious purposes, aligning with the provided MITRE ATT&CK description.  The repeated failures and patterns are suspicious and warrant investigation to determine the source and intent of the traffic.", 'mitigation': '1. Investigate the source IP addresses (20.40.202.0 and 192.168.230.4) involved in the TLS failures.  Check for reputation and geolocation information. 2. Examine network traffic patterns to identify any other anomalous activity from these IPs. 3. Review Suricata rules and configurations to ensure they are up-to-date and properly configured. 4. Implement stricter TLS/SSL inspection and validation rules. 5. Consider implementing or enhancing intrusion detection and prevention systems (IDS/IPS) to detect and block similar attacks. 6. Monitor for further TLS/SSL anomalies and investigate any new or unusual connection attempts.'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['inet-dns_logs_syslog.4', 'inet-dns_logs_auth.log.1', 'internal-share_logs_audit_audit.log', 'intranet-server_logs_syslog.4', 'inet-firewall_logs_syslog.4', 'internal-share_logs_auth.log.1', 'intranet-server_logs_audit_audit.log', 'internal-share_logs_syslog.4', 'intranet-server_logs_auth.log.1', 'inet-firewall_logs_auth.log.1']
+	Labels: []
+	148 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=USER....=success'
+	149 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=CRED....=success'
+	150 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=LOGI....=85 res=1
+	151 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=USER....=success'
+	53 | LOG NAME= intranet-server_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:25:01  |  Jan 21 06....n/anacron 	92 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=USER....=success'
+	93 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=CRED....=success'
+	94 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=LOGI....=43 res=1
+	95 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:01  |  type=USER....=success'
+	17 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:01  |  Jan 21 06....y (uid=0)
+	151 | LOG NAME= internal-share_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:25:01  |  Jan 21 06....n/anacron 	245 | LOG NAME= inet-dns_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:01  |  Jan 21 06....y (uid=0)
+	14 | LOG NAME= inet-firewall_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:02  |  Jan 21 06....y (uid=0)
+	19 | LOG NAME= inet-firewall_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:25:02  |  Jan 21 06....n/anacron 	1157 | LOG NAME= inet-dns_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:25:02  |  Jan 21 06....n/anacron 	246 | LOG NAME= inet-dns_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:14  |  Jan 21 06....user root
+	15 | LOG NAME= inet-firewall_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:15  |  Jan 21 06....user root
+	41 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:25:15  |  Jan 21 06....user root
+	152 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:15  |  type=CRED....=success'
+	153 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:15  |  type=USER....=success'
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['inet-firewall_logs_suricata_fast.log', 'internal-share_logs_audit_audit.log', 'intranet-server_logs_syslog.4', 'internal-share_logs_auth.log.1', 'intranet-server_logs_audit_audit.log']
+	Labels: []
+	152 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:15  |  type=CRED....=success'
+	153 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:25:15  |  type=USER....=success'
+	905 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:25:35  |  01/21/202....0.4:56464
+	906 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:25:35  |  01/21/202....0.4:56464
+	907 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:25:35  |  01/21/202....2.157:443
+	908 | LOG NAME= inet-firewall_logs_suricata_fast.log  |  TIMESTAMP= 2022-01-21 06:25:35  |  01/21/202....2.157:443
+	54 | LOG NAME= intranet-server_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:25:52  |  Jan 21 06....vities...
+	96 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:26:28  |  type=CRED....=success'
+	97 | LOG NAME= internal-share_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:26:28  |  type=USER....=success'
+	18 | LOG NAME= internal-share_logs_auth.log.1  |  TIMESTAMP= 2022-01-21 06:26:28  |  Jan 21 06....user root
+	55 | LOG NAME= intranet-server_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:29:24  |  Jan 21 06....iguration
+	56 | LOG NAME= intranet-server_logs_syslog.4  |  TIMESTAMP= 2022-01-21 06:29:25  |  Jan 21 06....guration]
+	154 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=AVC ....r_parser"
+	155 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=SYSC....ey=(null)
+	156 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=PROC....C69656E74
+	157 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=AVC ....r_parser"
+	158 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=SYSC....ey=(null)
+	159 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=PROC....C69656E74
+	160 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=AVC ....r_parser"
+	161 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=SYSC....ey=(null)
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-21 06:30:00
+	Sources: ['intranet-server_logs_audit_audit.log']
+	Labels: []
+	160 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=AVC ....r_parser"
+	161 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=SYSC....ey=(null)
+	162 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=PROC....C69656E74
+	163 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=AVC ....r_parser"
+	164 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=SYSC....ey=(null)
+	165 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-21 06:29:42  |  type=PROC....C69656E74
+{'malicious': 'False'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+0	11	11	0
+
+------------------------------
+Confusion Matrix for label benign:
+TP	TN	FP	FN
+0	1	1	0
+
+------------------------------
+Metrics General:
+	Accuracy: 50.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+	Flagged characters percentage: 56.12023551286024%
+
+------------------------------
+Metrics for label benign:
+	Accuracy: 50.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+
+------------------------------
+Time elapsed: 445.3011300843209
+Batch processed: 22
+Malformed outputs: 0
+------------------------------
+Model: gemma3:12b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

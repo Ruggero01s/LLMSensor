@@ -1,0 +1,9 @@
+Model: gemma3:12b
+Multihost: True
+RAG: True
+Average F1: 57.20
+Average Accuracy: 63.09
+Average Precision: 40.58
+Average Recall: 96.92
+Total time elapsed: 44714.81 seconds
+Total batches processed: 1699

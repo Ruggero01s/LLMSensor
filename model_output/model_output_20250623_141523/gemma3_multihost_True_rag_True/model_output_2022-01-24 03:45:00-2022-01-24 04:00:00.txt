@@ -1,0 +1,104 @@
+Batch:
+	Timestamp: 2022-01-24 03:45:00
+	Sources: ['inet-firewall_logs_syslog.2']
+	Labels: []
+	247 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:40  |  Jan 24 03....N URGP=0 
+	248 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	249 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	250 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	251 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	252 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	253 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	254 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	255 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	256 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	257 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:42  |  Jan 24 03....overflow!
+	258 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....uppressed
+	259 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	260 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	261 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	262 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	263 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	264 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	265 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	266 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:49  |  Jan 24 03....overflow!
+{'malicious': 'True', 'reason': 'The logs indicate repeated ARP cache overflows, a strong indicator of potential ARP cache poisoning. This could be an attempt by an attacker to intercept network traffic and potentially steal credentials or manipulate data. The MITRE ATT&CK entry specifically references ARP cache poisoning as a tactic for network interception and data manipulation.', 'mitigation': '1. Implement ARP inspection on network devices. 2. Use static ARP entries for critical devices. 3. Monitor ARP tables for unusual activity and rapid changes. 4. Employ network intrusion detection systems (NIDS) with ARP poisoning detection capabilities. 5. Educate users about the risks of connecting to untrusted networks. 6. Investigate the source of the ARP requests contributing to the cache overflows to identify potential compromised devices or malicious actors. 7. Consider using port security on switches to restrict MAC addresses allowed on each port.'}
+
+Batch:
+	Timestamp: 2022-01-24 03:45:00
+	Sources: ['intranet-server_logs_audit_audit.log', 'inet-firewall_logs_syslog.2']
+	Labels: []
+	265 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:48  |  Jan 24 03....overflow!
+	266 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:49  |  Jan 24 03....overflow!
+	267 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:49  |  Jan 24 03....overflow!
+	268 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:49  |  Jan 24 03....overflow!
+	269 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....uppressed
+	270 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	271 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	272 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	273 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	274 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	275 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	276 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	277 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	278 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	279 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:36:56  |  Jan 24 03....overflow!
+	1837 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=USER....=success'
+	1838 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=CRED....=success'
+	1839 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=LOGI....306 res=1
+	1840 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=USER....=success'
+	1841 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=CRED....=success'
+{'malicious': 'True', 'reason': 'The logs indicate repeated ARP cache poisoning attempts. This is a critical security issue as it can lead to man-in-the-middle attacks and credential compromise. The multiple entries within a short timeframe suggest a targeted attack rather than random network noise. The linked MITRE ATT&CK entry explicitly details the potential for data theft and credential compromise.', 'mitigation': '1. Implement ARP inspection on network devices. 2. Use static ARP entries or DHCP snooping to prevent unauthorized ARP mappings. 3. Monitor ARP tables for unexpected or frequent changes. 4. Implement network segmentation to limit the scope of potential ARP poisoning attacks. 5. Educate users about the risks of connecting untrusted devices to the network. 6. Consider using 802.1X authentication for network access.'}
+
+Batch:
+	Timestamp: 2022-01-24 03:45:00
+	Sources: ['intranet-server_logs_audit_audit.log', 'intranet-server_logs_auth.log', 'intranet-server_logs_syslog.2']
+	Labels: []
+	1840 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=USER....=success'
+	1841 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=CRED....=success'
+	1842 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  type=USER....=success'
+	207 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:39:01  |  Jan 24 03....lean; fi)
+	137 | LOG NAME= intranet-server_logs_auth.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  Jan 24 03....y (uid=0)
+	138 | LOG NAME= intranet-server_logs_auth.log  |  TIMESTAMP= 2022-01-24 03:39:01  |  Jan 24 03....user root
+	1843 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:12  |  type=SERV....=success'
+	1844 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-24 03:39:12  |  type=SERV....=success'
+	208 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:39:12  |  Jan 24 03.... files...
+	209 | LOG NAME= intranet-server_logs_syslog.2  |  TIMESTAMP= 2022-01-24 03:39:12  |  Jan 24 03....on files.
+{'malicious': 'True', 'reason': "The logs indicate a cron job (`/usr/lib/php/sessionclean`) is being executed as root. While cleaning PHP sessions might be a legitimate task, the execution as root raises a privilege escalation concern. An adversary could potentially modify or replace this script to execute malicious code with elevated privileges. The audit logs confirm this activity, and the MITRE ATT&CK description specifically notes cron's relevance for persistence and privilege escalation. The systemd logs related to 'Clean php session files' further confirm this activity.", 'mitigation': '1. Review the contents of `/usr/lib/php/sessionclean` to ensure its integrity and legitimacy.  Verify its source and hash against known good values. 2. Implement stricter access controls on cron jobs, limiting root privileges wherever possible. Consider using a dedicated, less privileged user for session cleaning. 3. Implement log monitoring and alerting specifically for cron job executions, particularly those run as root. 4. Regularly audit cron job configurations to identify any unauthorized or suspicious entries. 5. Consider using a more secure alternative to cron, such as systemd timers, which offer more fine-grained control and security features. 6. Implement a vulnerability scanning program that specifically checks cron configurations.'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+0	0	3	0
+
+------------------------------
+Confusion Matrix for label benign:
+TP	TN	FP	FN
+0	0	2	0
+
+------------------------------
+Metrics General:
+	Accuracy: 0.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+	Flagged characters percentage: 100.0%
+
+------------------------------
+Metrics for label benign:
+	Accuracy: 0.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+
+------------------------------
+Time elapsed: 95.2494509126991
+Batch processed: 3
+Malformed outputs: 0
+------------------------------
+Model: gemma3:12b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

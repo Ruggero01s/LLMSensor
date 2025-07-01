@@ -1,0 +1,10 @@
+Model: mistral-nemo:latest
+Multihost: True
+RAG: False
+Average F1: 61.02
+Average Accuracy: 47.20
+Average Precision: 46.02
+Average Recall: 99.65
+Average Flagged Characters Percentage: 98.33
+Total time elapsed: 4199.63 seconds
+Total batches processed: 713

@@ -1,0 +1,110 @@
+Batch:
+	Timestamp: 2022-01-23 10:55:00
+	Sources: ['intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2', 'inet-firewall_logs_syslog.2']
+	Labels: []
+	206 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:44:40  |  10.143.2.....i/537.36"
+	207 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:44:40  |  10.143.2.....i/537.36"
+	208 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:45:26  |  10.143.2.....i/537.36"
+	43 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-23 10:48:49  |  Jan 23 10.... dev ens7
+	44 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-23 10:48:49  |  Jan 23 10.......>.>...
+	209 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:54:50  |  10.143.2.....fox/86.0"
+{'malicious': 'True', 'reason': "The log entry from inet-firewall_logs_syslog.2 indicates a 'martian source' with a source IP of 255.255.255.255 originating from 169.254.169.254. Martian packets are malformed packets that should not be present in normal network traffic. This suggests an attempt to probe the network or potentially inject malicious traffic.  The presence of 255.255.255.255 as a source IP is highly unusual and warrants immediate investigation.", 'mitigation': '1. Immediately investigate the source IP address (169.254.169.254) to determine its origin and purpose. 2. Review firewall rules to ensure proper filtering of malformed packets. 3. Implement intrusion detection systems (IDS) to detect and alert on suspicious network traffic patterns. 4. Segment the network to limit the potential impact of a compromised host. 5. Regularly audit network logs to identify and address vulnerabilities.'}
+
+Batch:
+	Timestamp: 2022-01-23 11:05:00
+	Sources: ['intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2']
+	Labels: []
+	209 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:54:50  |  10.143.2.....fox/86.0"
+	210 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:59:24  |  10.143.2.....fox/86.0"
+	211 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 10:59:25  |  10.143.2.....fox/86.0"
+	212 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:01:19  |  10.143.2.....fox/86.0"
+	213 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:01:26  |  10.143.2.....fox/86.0"
+	214 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:02  |  10.143.2.....fox/86.0"
+	215 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:02  |  10.143.2.....fox/86.0"
+	216 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:23  |  10.143.2.....fox/86.0"
+	217 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:23  |  10.143.2.....fox/86.0"
+	218 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	219 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	220 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	221 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	222 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	223 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	224 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:02:54  |  172.19.13....i/537.36"
+	225 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:03:45  |  172.19.13....0 "-" "-"
+	226 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:10  |  10.143.2.....fox/86.0"
+	227 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:10  |  10.143.2.....fox/86.0"
+	228 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:19  |  172.19.13....i/537.36"
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-23 11:05:00
+	Sources: ['intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2', 'inet-firewall_logs_syslog.2']
+	Labels: []
+	227 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:10  |  10.143.2.....fox/86.0"
+	228 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:19  |  172.19.13....i/537.36"
+	229 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:19  |  172.19.13....i/537.36"
+	45 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  Jan 23 11.... dev ens6
+	46 | LOG NAME= inet-firewall_logs_syslog.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  Jan 23 11.......>.m...
+	230 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	231 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	232 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	233 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	234 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	235 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	236 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	237 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	238 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	239 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	240 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	241 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:20  |  172.19.13....i/537.36"
+	242 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+	243 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+	244 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+{'malicious': 'False'}
+
+Batch:
+	Timestamp: 2022-01-23 11:05:00
+	Sources: ['intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2']
+	Labels: []
+	243 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+	244 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+	245 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:21  |  172.19.13....i/537.36"
+	246 | LOG NAME= intranet-server_logs_apache2_intranet.smith.russellmitchell.com-access.log.2  |  TIMESTAMP= 2022-01-23 11:04:28  |  ::1 - - [....nection)"
+{'malicious': 'False'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+0	3	1	0
+
+------------------------------
+Confusion Matrix for label benign:
+TP	TN	FP	FN
+0	1	1	0
+
+------------------------------
+Metrics General:
+	Accuracy: 75.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+	Flagged characters percentage: 52.79589934762349%
+
+------------------------------
+Metrics for label benign:
+	Accuracy: 50.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+
+------------------------------
+Time elapsed: 76.73783200234175
+Batch processed: 4
+Malformed outputs: 0
+------------------------------
+Model: gemma3:12b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

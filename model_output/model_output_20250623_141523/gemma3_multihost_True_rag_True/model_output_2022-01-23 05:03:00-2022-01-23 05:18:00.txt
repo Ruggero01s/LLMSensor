@@ -1,0 +1,63 @@
+Batch:
+	Timestamp: 2022-01-23 05:03:00
+	Sources: ['inet-firewall_logs_syslog.3']
+	Labels: []
+	305 | LOG NAME= inet-firewall_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:01:26  |  Jan 23 05.... dev ens7
+	306 | LOG NAME= inet-firewall_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:01:26  |  Jan 23 05.......>.>...
+{'malicious': 'True', 'reason': "The logs indicate a 'martian source' (255.255.255.255) originating from an internal IP (169.254.169.254) and appearing on the ens7 network interface. Martian source addresses are invalid and generally shouldn't be seen in normal network traffic. Their presence suggests an attempt to probe the network, potentially for reconnaissance or other malicious activity, aligning with the Network Sniffing MITRE ATT&CK entry. The 'll header' also indicates potential network activity requiring further investigation.", 'mitigation': "1. Investigate the source IP (169.254.169.254) to determine its purpose and legitimacy. 2. Review firewall rules to ensure proper blocking of invalid source addresses. 3. Implement intrusion detection system (IDS) rules to specifically detect and alert on 'martian source' traffic. 4. Monitor network traffic for unusual patterns or probes. 5. Segment the network to limit the potential impact of a compromised host. 6. Regularly review firewall and IDS logs."}
+
+Batch:
+	Timestamp: 2022-01-23 05:13:00
+	Sources: ['intranet-server_logs_audit_audit.log', 'intranet-server_logs_auth.log.1', 'intranet-server_logs_syslog.3']
+	Labels: []
+	345 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-23 05:09:01  |  Jan 23 05....y (uid=0)
+	346 | LOG NAME= intranet-server_logs_auth.log.1  |  TIMESTAMP= 2022-01-23 05:09:01  |  Jan 23 05....user root
+	1293 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=USER....=success'
+	1294 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=CRED....=success'
+	1295 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=LOGI....233 res=1
+	1296 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=USER....=success'
+	1297 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=CRED....=success'
+	1298 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:01  |  type=USER....=success'
+	184 | LOG NAME= intranet-server_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:09:01  |  Jan 23 05....lean; fi)
+	1299 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:12  |  type=SERV....=success'
+	1300 | LOG NAME= intranet-server_logs_audit_audit.log  |  TIMESTAMP= 2022-01-23 05:09:12  |  type=SERV....=success'
+	185 | LOG NAME= intranet-server_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:09:12  |  Jan 23 05.... files...
+	186 | LOG NAME= intranet-server_logs_syslog.3  |  TIMESTAMP= 2022-01-23 05:09:12  |  Jan 23 05....on files.
+{'malicious': 'False'}
+
+------------------------------
+Confusion Matrix General:
+TP	TN	FP	FN
+0	1	1	0
+
+------------------------------
+Confusion Matrix for label benign:
+TP	TN	FP	FN
+0	1	1	0
+
+------------------------------
+Metrics General:
+	Accuracy: 50.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+	Flagged characters percentage: 11.723226090788893%
+
+------------------------------
+Metrics for label benign:
+	Accuracy: 50.0%
+	Precision: 0.0%
+	Recall: -100%
+	F1: -100%
+
+------------------------------
+Time elapsed: 32.824527302756906
+Batch processed: 2
+Malformed outputs: 0
+------------------------------
+Model: gemma3:12b
+System prompt main: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and return: {"malicious": "True|False", "query": "Only if malicious is true"}. If you find the batch suspicious, provide a description of it in the query field of the JSON response. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders.
+System prompt rag: You are part of a SOC team triaging log files. Your job is to flag logs that merit deeper investigation. Read the following logs and an entry from MITRE ATT&CK database and return this formatted JSON: {"malicious": "True|False", "reason": "Only if malicious is true", "mitigation": "Some steps to take in order to protect against the identified threat"}. Consider patterns such as failed logins, unusual access times, use of rare commands, suspicious IPs, etc. False negatives are worse than false positives in this context, but do not trigger on generic system noise or normal operations. Keep the threshold tuned for catching real threats without overwhelming responders. Output only the JSON.
+RAG embedding: bge-m3:latest
+Multihost: True
+------------------------------

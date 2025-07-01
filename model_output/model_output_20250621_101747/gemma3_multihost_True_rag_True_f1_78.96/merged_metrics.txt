@@ -1,0 +1,7 @@
+Model: gemma3:12b
+Multihost: True
+RAG: True
+Average F1: 78.96
+Average Accuracy: 82.48
+Average Precision: 73.60
+Average Recall: 90.13
